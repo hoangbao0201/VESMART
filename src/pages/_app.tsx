@@ -1,6 +1,37 @@
 import '@/styles/globals.css'
+import { NextPage } from 'next';
 import type { AppProps } from 'next/app'
+import { ReactElement, ReactNode } from 'react';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+
+import "nprogress/nprogress.css";
+import NProgress from "nprogress";
+import { Router } from 'next/router';
+import ScrollOnTop from '@/components/share/ScrollOnTop';
+
+//Binding events.
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
+NProgress.configure({ showSpinner: false });
+
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {
+
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout ?? ((page: ReactNode) => page)
+
+  return (
+    <>
+      {getLayout(<Component {...pageProps} />)}
+      <ScrollOnTop />
+    </>
+  )
 }
