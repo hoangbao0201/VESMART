@@ -30,7 +30,7 @@ const BlogDetailPage: NextPageWithLayout<BlogDetailPageProps> = ({ blog }) => {
                                     <dd>
                                         <time dateTime={`${blog.createdAt}`}>{formatDate(String(blog.createdAt))}</time>
                                     </dd>
-                                    <h1 className="text-4xl">{blog.title}</h1>
+                                    <h1 className="text-6xl font-extrabold">{blog.title}</h1>
                                 </dl>
                                 <div></div>
                             </div>
