@@ -2,22 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    html {
+        @apply md:text-lg;
+    }
+
+    h1 {
+        @apply mb-6 text-4xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-5xl md:leading-14;
+    }
+    h2 {
+        @apply text-2xl font-semibold;
+    }
+    /* p {
+        @apply mb-4;
+    } */
+    .prose img {
+        @apply mx-auto max-w-xl w-full rounded-sm;
+    }
+}
+
+
+
+.task-list-item::before {
+    @apply hidden;
+}
+
+.task-list-item {
+    @apply list-none;
+}
+
+.footnotes {
+    @apply mt-12 border-t border-gray-200 pt-8 dark:border-gray-700;
+}
+
+.csl-entry {
+    @apply my-5;
+}
+
+::marker {
+    @apply text-gray-300 dark:text-gray-500;
+}
+
 :root {
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    
-  }
+    :root {
+    }
 }
 
 * {
-  margin: 0px;
-  padding: 0px;
+    margin: 0px;
+    padding: 0px;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-  Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-  'Segoe UI Symbol';
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
 }

@@ -3,7 +3,6 @@ import { NextPage } from 'next';
 import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react';
 
-
 import "nprogress/nprogress.css";
 import NProgress from "nprogress";
 import { Router } from 'next/router';

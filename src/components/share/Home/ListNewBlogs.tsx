@@ -10,7 +10,7 @@ interface ListNewBlogsProps {
 
 const ListNewBlogs = ({ blogs } : ListNewBlogsProps) => {
 
-    console.log(blogs)
+    // console.log(blogs)
 
     return (
         <ul className="grid">
@@ -30,11 +30,11 @@ const ListNewBlogs = ({ blogs } : ListNewBlogsProps) => {
                                         <div className="mb-5">
                                             <div className="mb-3">
                                                 <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                                                    <Link className="text-sky-600 line-clamp-2" href={`/bai-viet/${blog.slug}`}>{blog.title}</Link>
+                                                    <Link className="text-primary-500 line-clamp-2" href={`/bai-viet/${blog.slug}`}>{blog.title}</Link>
                                                 </h2>
                                             </div>
 
-                                            <div className="text-xl text-gray-600 font-normal">{blog.description}</div>
+                                            <div className="text-lg text-gray-600 font-normal">{blog.description}</div>
                                         </div>
 
                                         <div className="flex text-lg text-gray-600">

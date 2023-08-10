@@ -111,6 +111,31 @@ class BlogService {
             };
         }
     }
+
+    async update(id: string, data: any) {
+        try {
+            const blogUpdate = await prismaService.blog.update({
+                where: {
+                    id: id
+                },
+                data: {
+                    ...data
+                }
+            })
+    
+            return {
+                success: true,
+                message: "Update blog successful",
+                blog: blogUpdate
+            }
+        } catch (error) {
+            return {
+                success: false,
+                message: "error blogs successful",
+                error: error
+            };
+        }
+    }
 }
 
 const blogService = new BlogService();

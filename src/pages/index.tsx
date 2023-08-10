@@ -18,7 +18,7 @@ const HomePage: NextPageWithLayout<HomePageProps> = ({ blogs }) => {
 
     return (
         <>
-            <div className="max-w-4xl w-full mx-auto px-10">
+            <div className="max-w-4xl w-full mx-auto px-4">
                 <ListNewBlogs blogs={blogs}/>
             </div>
         </>

@@ -19,25 +19,31 @@ const BlogDetailPage: NextPageWithLayout<BlogDetailPageProps> = ({ blog }) => {
 
     return (
         <>
-            <div className="max-w-6xl w-full mx-auto px-10">
+            <div className="max-w-5xl min-h-screen w-full mx-auto px-4">
 
-                {
-                    blog && (
-                        <>
-                            <div>
-                                <dl className="mb-1">
-                                    <dt></dt>
-                                    <dd>
-                                        <time dateTime={`${blog.createdAt}`}>{formatDate(String(blog.createdAt))}</time>
-                                    </dd>
-                                    <h1 className="text-6xl font-extrabold">{blog.title}</h1>
-                                </dl>
-                                <div></div>
-                            </div>
-                            <div className="prose" dangerouslySetInnerHTML={{ __html: marked(blog.content) }} />
-                        </>
-                    )
-                }
+                <div className="-mx-4 flex">
+                    {
+                        blog && (
+                            <>
+                                <div className="lg:w-8/12 w-full px-4 mx-auto pt-6 pb-8">
+                                    <dl className="">
+                                        <dt></dt>
+                                        <dd className="">
+                                            <time dateTime={`${blog.createdAt}`}>{formatDate(String(blog.createdAt))}</time>
+                                        </dd>
+                                        <h1 className="my-5 text-4xl text-left font-extrabold">{blog.title}</h1>
+                                    </dl>
+                                    <div className="prose contents" dangerouslySetInnerHTML={{ __html: marked(blog.content) }} />
+                                </div>
+                            </>
+                        )
+                    }
+                    <div className="w-4/12 px-4 sticky top-0 h-screen pt-6 hidden lg:block">
+                        <div className="w-full rounded-md h-40 mb-3 bg-gray-100"></div>
+                        <div className="w-full rounded-md h-40 mb-3 bg-gray-100"></div>
+                        <div className="w-full rounded-md h-40 mb-3 bg-gray-100"></div>
+                    </div>
+                </div>
 
             </div>
         </>
@@ -63,6 +69,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         props: {
             blog: JSON.parse(JSON.stringify(blogRes.blog)),
         },
+        revalidate: 60*60
     };
 };
 
