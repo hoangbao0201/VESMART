@@ -136,6 +136,40 @@ class BlogService {
             };
         }
     }
+
+
+
+
+
+
+    // ----------- FULL BLOG SEO -----------------
+    async fullSeo() {
+        try {
+            const blogs = await prismaService.blog.findMany({
+                select: {
+                    id: true,
+                    slug: true,
+                    createdAt: true,
+                    updatedAt: true
+                },
+                orderBy: {
+                    createdAt: "desc"
+                }
+            });
+        
+            return {
+                success: true,
+                message: "Get blogs successful",
+                blogs: blogs
+            };
+        } catch (error) {
+            return {
+                success: false,
+                message: "error blogs successful",
+                error: error
+            };
+        }
+    }
 }
 
 const blogService = new BlogService();

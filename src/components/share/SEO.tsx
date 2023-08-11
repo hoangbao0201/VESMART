@@ -1,13 +1,7 @@
-// import Head from 'next/head'
-// import { useRouter } from 'next/router'
-// import siteMetadata from '@/data/siteMetadata'
-// import { AuthorFrontMatter } from 'types/AuthorFrontMatter'
-// import { PostFrontMatter } from 'types/PostFrontMatter'
-
-import siteMetadata from "@/siteMetadata";
-import { BlogTypes, UserTypes } from "@/types";
 import Head from "next/head";
+
 import { useRouter } from "next/router";
+import siteMetadata from "@/siteMetadata";
 
 interface CommonSEOProps {
     title: string;
