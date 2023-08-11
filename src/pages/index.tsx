@@ -8,6 +8,8 @@ import { NextPageWithLayout } from "./_app";
 import MainLayout from "@/components/layouts/MainLayout";
 import blogService from "@/services/blog.services";
 import ListNewBlogs from "@/components/share/Home/ListNewBlogs";
+import { PageSEO } from "@/components/share/SEO";
+import siteMetadata from "@/siteMetadata";
 
 interface HomePageProps {
     blogs: BlogTypes[] | null;
@@ -18,6 +20,10 @@ const HomePage: NextPageWithLayout<HomePageProps> = ({ blogs }) => {
 
     return (
         <>
+            <PageSEO
+                title="Trang chủ - VESMART"
+                description={siteMetadata.description}
+            />
             <div className="max-w-4xl w-full mx-auto px-4">
                 <ListNewBlogs blogs={blogs}/>
             </div>

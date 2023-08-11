@@ -3,7 +3,7 @@ const siteMetadata = {
     author: "Vesmart",
     headerTitle: "Vesmart",
     description:
-        "Một blog tập trung vào bán hàng và các công cụ phụ trợ khác cũng như kiến thức, dịch vụ",
+        "Chuyên trang điện tử hàng đầu Việt Nam, cung cấp các sản phẩm điện tử chất lượng, thông tin cập nhật nhanh chóng về ngành công nghiệp, dịch vụ tư vấn và hỗ trợ chuyên sâu. Nơi chia sẻ và đăng tải bài viết, đánh giá về các sản phẩm mới nhất trên thị trường.",
     language: "vi-VN",
     theme: "light",
     siteUrl: "https://vesmart.online",

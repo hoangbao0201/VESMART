@@ -76,27 +76,32 @@ const CommonSEO = ({
     );
 };
 
-// interface PageSEOProps {
-//   title: string
-//   description: string
-//   imageUrl?: string
-//   isHiddenFromSearch?: boolean
-// }
+interface PageSEOProps {
+    title: string;
+    description: string;
+    imageUrl?: string;
+    isHiddenFromSearch?: boolean;
+}
 
-// export const PageSEO = ({ title, description, isHiddenFromSearch, imageUrl }: PageSEOProps) => {
-//   const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
-//   const twImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
-//   return (
-//     <CommonSEO
-//       title={title}
-//       description={description}
-//       ogType="website"
-//       ogImage={imageUrl ? imageUrl : ogImageUrl}
-//       twImage={imageUrl ? imageUrl : twImageUrl}
-//       isHiddenFromSearch={isHiddenFromSearch}
-//     />
-//   )
-// }
+export const PageSEO = ({
+    title,
+    description,
+    isHiddenFromSearch,
+    imageUrl,
+}: PageSEOProps) => {
+    const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner;
+    const twImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner;
+    return (
+        <CommonSEO
+            title={title}
+            description={description}
+            ogType="website"
+            ogImage={imageUrl ? imageUrl : ogImageUrl}
+            twImage={imageUrl ? imageUrl : twImageUrl}
+            isHiddenFromSearch={isHiddenFromSearch}
+        />
+    );
+};
 
 // export const TagSEO = ({ title, description }: PageSEOProps) => {
 //   const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
@@ -124,17 +129,17 @@ const CommonSEO = ({
 // }
 
 interface BlogSeoProps {
-    title: string
-    author: string
-    url: string
-    images?: string[]
+    title: string;
+    author: string;
+    url: string;
+    images?: string[];
 
-    summary: string
-    canonicalUrl?: string
-    isHiddenFromSearch?: boolean
+    summary: string;
+    canonicalUrl?: string;
+    isHiddenFromSearch?: boolean;
 
-    createdAt: Date
-    updatedAt: Date
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export const BlogSEO = ({
