@@ -2,7 +2,7 @@ import { Fragment, ReactNode } from "react";
 import { GetStaticProps } from "next";
 
 import { Params } from "@/config";
-import { BlogsTypes } from "@/types";
+import { BlogTypes } from "@/types";
 import { NextPageWithLayout } from "./_app";
 
 import MainLayout from "@/components/layouts/MainLayout";
@@ -10,7 +10,7 @@ import blogService from "@/services/blog.services";
 import ListNewBlogs from "@/components/share/Home/ListNewBlogs";
 
 interface HomePageProps {
-    blogs: BlogsTypes[] | null;
+    blogs: BlogTypes[] | null;
 }
 
 const HomePage: NextPageWithLayout<HomePageProps> = ({ blogs }) => {

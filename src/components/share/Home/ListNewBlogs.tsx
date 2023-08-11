@@ -1,11 +1,10 @@
-import { Fragment } from "react";
-import { BlogsTypes } from "@/types";
+import { BlogTypes } from "@/types";
 import formatDate from "@/utils/formatDate";
 import Link from "next/link";
 
 
 interface ListNewBlogsProps {
-    blogs: BlogsTypes[] | null;
+    blogs: BlogTypes[] | null;
 }
 
 const ListNewBlogs = ({ blogs } : ListNewBlogsProps) => {

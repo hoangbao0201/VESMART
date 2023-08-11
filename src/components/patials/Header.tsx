@@ -8,7 +8,7 @@ const Header = () => {
             <div className="w-full h-[50px]">
                 <div className="flex lg:max-w-7xl max-w-3xl w-full mx-auto px-4">
 
-                    <Link title="Truyện tranh online" href={`/`}>
+                    <Link title="VESMART" href={`/`}>
                         <p className="leading-[50px] text-2xl font-bold">
                             VESMART
                         </p>
