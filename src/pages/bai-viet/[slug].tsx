@@ -11,7 +11,13 @@ import MainLayout from "@/components/layouts/MainLayout";
 import { BlogSEO } from "@/components/share/SEO";
 import siteMetadata from "@/siteMetadata";
 import Breadcrumb from "@/components/share/Breadcrumb";
-import MarkedContent from "@/components/share/MarkedContent";
+
+import dynamic from "next/dynamic";
+
+const MarkedContent = dynamic(() => import("@/components/share/MarkedContent"), {
+    ssr: false,
+    loading: () => <p></p>,
+});
 
 interface BlogDetailPageProps {
     blog: BlogTypes | null;
@@ -58,9 +64,11 @@ const BlogDetailPage: NextPageWithLayout<BlogDetailPageProps> = ({ blog }) => {
                                             <h1 className="my-5 text-4xl text-left font-extrabold">{blog.title}</h1>
                                         </dl>
                                         
-                                        {/* <div className="mb-4" dangerouslySetInnerHTML={{ __html: (blog.description) }} /> */}
+                                        <div className="mb-4" dangerouslySetInnerHTML={{ __html: (blog.description) }} />
 
-                                        <MarkedContent content={blog.content}/>
+                                        <MarkedContent>
+                                            {blog.content}
+                                        </MarkedContent>
                                     </>
                                 )
                             }
@@ -101,7 +109,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-    return { paths: [], fallback: false };
+    return { paths: [], fallback: true };
 };
 
 BlogDetailPage.getLayout = (page: ReactNode) => {

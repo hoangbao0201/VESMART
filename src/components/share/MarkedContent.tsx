@@ -13,19 +13,16 @@ const config = {
 };
 
 interface MarkedContentProps {
-    content: string
+    children: any
 }
 
-const MarkedContent = ({ content } : MarkedContentProps) => {
-
-    // console.log(content);
+const MarkedContent = ({ children } : MarkedContentProps) => {
 
     return (
         <>
             <div className="prose">
-                {/* {marked(content)} */}
                 <ReactMarkdown components={config}>
-                    {content}
+                    {children}
                 </ReactMarkdown>
             </div>
         </>
