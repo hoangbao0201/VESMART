@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 
-import { marked } from "marked";
 import { Params } from "@/config";
 import { BlogTypes } from "@/types";
 
@@ -12,13 +11,14 @@ import MainLayout from "@/components/layouts/MainLayout";
 import { BlogSEO } from "@/components/share/SEO";
 import siteMetadata from "@/siteMetadata";
 import Breadcrumb from "@/components/share/Breadcrumb";
+import MarkedContent from "@/components/share/MarkedContent";
 
 interface BlogDetailPageProps {
     blog: BlogTypes | null;
 }
 
 const BlogDetailPage: NextPageWithLayout<BlogDetailPageProps> = ({ blog }) => {
-    // console.log("blog: ", blog);
+    
 
     return (
         <>
@@ -57,13 +57,15 @@ const BlogDetailPage: NextPageWithLayout<BlogDetailPageProps> = ({ blog }) => {
                                             </dd>
                                             <h1 className="my-5 text-4xl text-left font-extrabold">{blog.title}</h1>
                                         </dl>
-                                        <div className="prose contents" dangerouslySetInnerHTML={{ __html: marked(blog.content) }} />
+                                        
+                                        {/* <div className="mb-4" dangerouslySetInnerHTML={{ __html: (blog.description) }} /> */}
+
+                                        <MarkedContent content={blog.content}/>
                                     </>
                                 )
                             }
                         </div>
                         <div className="w-4/12 px-4 sticky top-0 h-screen hidden lg:block">
-                            <div className="w-full rounded-md h-40 mb-3 bg-gray-100"></div>
                             <div className="w-full rounded-md h-40 mb-3 bg-gray-100"></div>
                             <div className="w-full rounded-md h-40 mb-3 bg-gray-100"></div>
                         </div>
@@ -99,7 +101,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-    return { paths: [], fallback: true };
+    return { paths: [], fallback: false };
 };
 
 BlogDetailPage.getLayout = (page: ReactNode) => {

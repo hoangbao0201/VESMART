@@ -1,0 +1,6 @@
+
+.prose {
+    :where(ul > li):not(:where([class~="not-prose"] *))::marker {
+        color: rgb(174, 174, 174)
+    }
+}

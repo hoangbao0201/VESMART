@@ -33,8 +33,67 @@
 // }
 
 import prismaService from "@/libs/prismaService";
+import { BlogTypes } from "@/types";
 
 class BlogService {
+
+    async createBlog(userId: string, body: BlogTypes) : Promise<any> {
+        try {
+            const { slug, title, thumbnail, description, content } = body;
+
+            const blogHashtags = ["vesmart", "robothutbui", "suachuadanang"];
+
+            const newBlog = await prismaService.blog.create({
+                data: {
+                    slug: slug,
+                    title: title,
+                    thumbnail: thumbnail,
+
+                    author: {
+                        connect: {
+                            id: userId
+                        }
+                    },
+                    status: null,
+                    description: description || null,
+
+                    content: content,
+                    
+                    blogHashtags: {
+                        create: blogHashtags.map(tag => (
+                            {
+                                Hashtag: {
+                                    connectOrCreate: {
+                                        where: {
+                                            name: tag,
+                                        },
+                                        create: {
+                                            name: tag
+                                        }
+                                    }
+                                }
+                            }
+                        ))
+                    }
+                }
+            })
+
+            // delete newBlog.content
+
+            return {
+                success: true,
+                message: "Create blogs successful",
+                // blog: newBlog
+            };
+        } catch (error) {
+            return {
+                success: false,
+                message: "error blogs successful",
+                error: error
+            };
+        }
+    
+    }
 
     async findAll(query: any) {
         const { page = 0, limit = 10 } = query;
