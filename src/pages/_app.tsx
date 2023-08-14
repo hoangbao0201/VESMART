@@ -1,13 +1,15 @@
 import '@/styles/globals.css'
 import '@/styles/feature.scss'
 import { NextPage } from 'next';
+import { Router } from 'next/router';
 import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react';
 
 import "nprogress/nprogress.css";
 import NProgress from "nprogress";
-import { Router } from 'next/router';
+
 import ScrollOnTop from '@/components/share/ScrollOnTop';
+import ButtonContact from '@/components/patials/ButtonContact';
 
 //Binding events.
 Router.events.on("routeChangeStart", () => NProgress.start());
@@ -31,7 +33,10 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
   return (
     <>
       {getLayout(<Component {...pageProps} />)}
+      
       <ScrollOnTop />
+
+      {/* <ButtonContact /> */}
     </>
   )
 }

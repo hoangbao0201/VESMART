@@ -53,6 +53,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         props: {
             blogs: JSON.parse(JSON.stringify(blogsRes.blogs)),
         },
+        revalidate: 60*5
     };
 };
 
