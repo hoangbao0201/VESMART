@@ -8,9 +8,9 @@ const Footer = () => {
             <div className="w-full py-4">
                 <div className="md:flex lg:max-w-7xl max-w-3xl w-full mx-auto px-4">
                     <div className="pb-4 md:w-4/12 max-md:border-b ">
-                        <h1 className="mb-3 text-2xl font-bold text-white">
-                            <Link title="Truyện tranh online" href={`/`}>VESMART</Link>
-                        </h1>
+                        <p className="mb-3 text-2xl font-bold text-white">
+                            <Link title="VESMART" href={`/`}>VESMART</Link>
+                        </p>
                         <p className="text-white">
                             <Link href={`/chinh-sach-bao-mat`}>
                                 Chính sách bảo mật
