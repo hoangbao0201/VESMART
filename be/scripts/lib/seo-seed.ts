@@ -1,7 +1,7 @@
-# =============================================================================
-# Shared helpers for VESMART SEO / forum Prisma seed scripts
-# Keep CTA + env loading here; content drafts stay in each seed-*.ts
-# =============================================================================
+/**
+ * Shared helpers for VESMART SEO / forum Prisma seed scripts.
+ * Keep CTA + env loading here; content drafts stay in each seed-*.ts
+ */
 import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
