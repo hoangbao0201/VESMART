@@ -1,0 +1,22 @@
+---
+description: VESMART web monorepo layout, secrets, deploy, production URLs
+alwaysApply: true
+---
+
+# VESMART web
+
+Monorepo tại `web/`: `fe/` (Next.js), `be/` (NestJS + Prisma). Production: https://vesmart.vn , API `/api/v1`.
+
+## Ngoài fe/be
+
+- `.cursor/rules/` — quy tắc agent (SEO, forum, auth…)
+- `be/scripts/lib/seo-seed.ts` — helper seed SEO dùng chung
+- `deploy/` — script VPS **local only** (gitignore secrets)
+
+## Không commit
+
+`.env*`, TLS keys, `client_secret*.json`, mật khẩu trong `deploy/*.py`, `tool-facebook/`, `project/` legacy.
+
+## Deploy
+
+Dùng `deploy/*.py` (Paramiko). Không nhúng secret vào git. Sau đổi auth/FE/BE: build + `pm2 restart vesmart-fe|vesmart-be`.

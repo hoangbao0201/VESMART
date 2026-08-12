@@ -1,0 +1,82 @@
+/* VESMART - react-markdown-editor-lite chrome (preview uses markdown-content.css) */
+
+.vesmart-md-editor {
+  --md-border: var(--border);
+  --md-bg: var(--card);
+  --md-fg: var(--card-foreground);
+  --md-muted: var(--muted-foreground);
+  --md-primary: var(--primary);
+  --md-secondary: var(--secondary);
+  --md-radius: 12px;
+}
+
+.vesmart-md-editor .rc-md-editor {
+  border: 1px solid var(--md-border) !important;
+  border-radius: var(--md-radius) !important;
+  overflow: hidden;
+  background: var(--md-bg) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+.vesmart-md-editor .rc-md-editor .editor-container {
+  background: var(--md-bg) !important;
+}
+
+.vesmart-md-editor .rc-md-editor .rc-md-navigation {
+  background: var(--md-secondary) !important;
+  border-bottom: 1px solid var(--md-border) !important;
+  min-height: 44px;
+  padding: 4px 8px;
+  gap: 2px;
+}
+
+.vesmart-md-editor .rc-md-editor .rc-md-navigation .button-wrap .button {
+  color: var(--md-muted) !important;
+  border-radius: 8px !important;
+  transition: color 150ms, background-color 150ms;
+}
+
+.vesmart-md-editor .rc-md-editor .rc-md-navigation .button-wrap .button:hover {
+  color: var(--md-fg) !important;
+  background: color-mix(in srgb, var(--md-primary) 12%, transparent) !important;
+}
+
+.vesmart-md-editor .rc-md-editor .rc-md-navigation .button-wrap .button.disabled {
+  opacity: 0.35;
+}
+
+.vesmart-md-editor .rc-md-editor .editor-container .sec-md .input,
+.vesmart-md-editor .rc-md-editor .editor-container .sec-html .html-wrap {
+  background: var(--md-bg) !important;
+  color: var(--md-fg) !important;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif !important;
+  font-size: 0.95rem !important;
+  line-height: 1.7 !important;
+  padding: 16px !important;
+}
+
+.vesmart-md-editor .rc-md-editor .editor-container .sec-md .input {
+  border-right: 1px solid var(--md-border) !important;
+}
+
+.vesmart-md-editor .rc-md-editor .editor-container .sec-html {
+  background: var(--md-bg) !important;
+}
+
+.vesmart-md-editor .rc-md-editor .editor-container > .section {
+  border-color: var(--md-border) !important;
+}
+
+/* Preview pane: full markdown styles, unconstrained width inside editor */
+.vesmart-md-editor .vesmart-md-content {
+  max-width: none;
+  font-size: 0.95rem;
+}
+
+.vesmart-md-editor .vesmart-md-content .md-code-copy {
+  display: none;
+}
+
+.vesmart-md-editor .vesmart-md-content .md-image {
+  cursor: default;
+}

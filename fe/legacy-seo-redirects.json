@@ -1,0 +1,752 @@
+[
+  {
+    "source": "/bai-viet/dia-chi-sua-chua-cac-loai-robot-hut-bui-uy-tin-nhat-da-nang",
+    "destination": "/blog/dia-chi-sua-chua-cac-loai-robot-hut-bui-uy-tin-nhat-da-nang-1",
+    "permanent": true
+  },
+  {
+    "source": "/blog/dia-chi-sua-chua-cac-loai-robot-hut-bui-uy-tin-nhat-da-nang",
+    "destination": "/blog/dia-chi-sua-chua-cac-loai-robot-hut-bui-uy-tin-nhat-da-nang-1",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-tai-nha-nhu-the-nao",
+    "destination": "/blog/sua-chua-robot-hut-bui-tai-nha-nhu-the-nao-2",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-tai-nha-nhu-the-nao",
+    "destination": "/blog/sua-chua-robot-hut-bui-tai-nha-nhu-the-nao-2",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/mach-ban-6-cach-sua-robot-hut-bui-tai-nha-don-gian-de-thuc-hien",
+    "destination": "/blog/mach-ban-6-cach-sua-robot-hut-bui-tai-nha-don-gian-de-thuc-hien-3",
+    "permanent": true
+  },
+  {
+    "source": "/blog/mach-ban-6-cach-sua-robot-hut-bui-tai-nha-don-gian-de-thuc-hien",
+    "destination": "/blog/mach-ban-6-cach-sua-robot-hut-bui-tai-nha-don-gian-de-thuc-hien-3",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/top-10-co-so-sua-robot-hut-bui-da-nang-uy-tin",
+    "destination": "/blog/top-10-co-so-sua-robot-hut-bui-da-nang-uy-tin-4",
+    "permanent": true
+  },
+  {
+    "source": "/blog/top-10-co-so-sua-robot-hut-bui-da-nang-uy-tin",
+    "destination": "/blog/top-10-co-so-sua-robot-hut-bui-da-nang-uy-tin-4",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-robot-hut-bui-tai-da-nang-sua-chua-uy-tin",
+    "destination": "/blog/sua-robot-hut-bui-tai-da-nang-sua-chua-uy-tin-5",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-robot-hut-bui-tai-da-nang-sua-chua-uy-tin",
+    "destination": "/blog/sua-robot-hut-bui-tai-da-nang-sua-chua-uy-tin-5",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/trum-phu-kien-robot-hut-bui-da-nang",
+    "destination": "/blog/trum-phu-kien-robot-hut-bui-da-nang-6",
+    "permanent": true
+  },
+  {
+    "source": "/blog/trum-phu-kien-robot-hut-bui-da-nang",
+    "destination": "/blog/trum-phu-kien-robot-hut-bui-da-nang-6",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/thay-pin-may-hut-bui-cam-tay-dreame-v9",
+    "destination": "/blog/thay-pin-may-hut-bui-cam-tay-dreame-v9-7",
+    "permanent": true
+  },
+  {
+    "source": "/blog/thay-pin-may-hut-bui-cam-tay-dreame-v9",
+    "destination": "/blog/thay-pin-may-hut-bui-cam-tay-dreame-v9-7",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-may-hut-bui-cam-tay-khong-day-su-lua-chon-tien-loi-tu-vesmart",
+    "destination": "/blog/sua-chua-may-hut-bui-cam-tay-khong-day-su-lua-chon-tien-loi-tu-vesmart-8",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-may-hut-bui-cam-tay-khong-day-su-lua-chon-tien-loi-tu-vesmart",
+    "destination": "/blog/sua-chua-may-hut-bui-cam-tay-khong-day-su-lua-chon-tien-loi-tu-vesmart-8",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-may-hut-bui-tai-vesmart-da-nang-dia-chi-uy-tin-danh-cho-may-hut-bui-khong-day",
+    "destination": "/blog/sua-may-hut-bui-tai-vesmart-da-nang-dia-chi-uy-tin-danh-cho-may-hut-bui-khong-day-9",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-may-hut-bui-tai-vesmart-da-nang-dia-chi-uy-tin-danh-cho-may-hut-bui-khong-day",
+    "destination": "/blog/sua-may-hut-bui-tai-vesmart-da-nang-dia-chi-uy-tin-danh-cho-may-hut-bui-khong-day-9",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/dich-vu-sua-chua-robot-hut-bui-dyson-chuyen-nghiep-tai-da-nang",
+    "destination": "/blog/dich-vu-sua-chua-robot-hut-bui-dyson-chuyen-nghiep-tai-da-nang-10",
+    "permanent": true
+  },
+  {
+    "source": "/blog/dich-vu-sua-chua-robot-hut-bui-dyson-chuyen-nghiep-tai-da-nang",
+    "destination": "/blog/dich-vu-sua-chua-robot-hut-bui-dyson-chuyen-nghiep-tai-da-nang-10",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-cao-bang",
+    "destination": "/blog/sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-cao-bang-11",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-cao-bang",
+    "destination": "/blog/sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-cao-bang-11",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-tai-quang-tri-khi-cong-nghe-gap-chuyen-mon",
+    "destination": "/blog/sua-chua-robot-hut-bui-tai-quang-tri-khi-cong-nghe-gap-chuyen-mon-12",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-tai-quang-tri-khi-cong-nghe-gap-chuyen-mon",
+    "destination": "/blog/sua-chua-robot-hut-bui-tai-quang-tri-khi-cong-nghe-gap-chuyen-mon-12",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/trung-tam-sua-chua-thiet-bi-thong-minh-chuyen-nghiep-phuc-vu-hue",
+    "destination": "/blog/trung-tam-sua-chua-thiet-bi-thong-minh-chuyen-nghiep-phuc-vu-hue-13",
+    "permanent": true
+  },
+  {
+    "source": "/blog/trung-tam-sua-chua-thiet-bi-thong-minh-chuyen-nghiep-phuc-vu-hue",
+    "destination": "/blog/trung-tam-sua-chua-thiet-bi-thong-minh-chuyen-nghiep-phuc-vu-hue-13",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-robot-hut-bui-da-nang-dich-vu-uy-tin-gia-re",
+    "destination": "/blog/sua-robot-hut-bui-da-nang-dich-vu-uy-tin-gia-re-14",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-robot-hut-bui-da-nang-dich-vu-uy-tin-gia-re",
+    "destination": "/blog/sua-robot-hut-bui-da-nang-dich-vu-uy-tin-gia-re-14",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-dreame-z10-loi-nhap-nhay-khong-co-am-thanh",
+    "destination": "/blog/sua-chua-robot-hut-bui-dreame-z10-loi-nhap-nhay-khong-co-am-thanh-15",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-dreame-z10-loi-nhap-nhay-khong-co-am-thanh",
+    "destination": "/blog/sua-chua-robot-hut-bui-dreame-z10-loi-nhap-nhay-khong-co-am-thanh-15",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/dich-vu-sua-robot-hut-bui-xiaomi-vacuum-x20-pro-uy-tin-chuyen-nghiep",
+    "destination": "/blog/dich-vu-sua-robot-hut-bui-xiaomi-vacuum-x20-pro-uy-tin-chuyen-nghiep-16",
+    "permanent": true
+  },
+  {
+    "source": "/blog/dich-vu-sua-robot-hut-bui-xiaomi-vacuum-x20-pro-uy-tin-chuyen-nghiep",
+    "destination": "/blog/dich-vu-sua-robot-hut-bui-xiaomi-vacuum-x20-pro-uy-tin-chuyen-nghiep-16",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-robot-hut-bui-chuyen-nghiep-tai-thai-nguyen-ho-tro-van-chuyen-toan-quoc",
+    "destination": "/blog/sua-robot-hut-bui-chuyen-nghiep-tai-thai-nguyen-ho-tro-van-chuyen-toan-quoc-17",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-robot-hut-bui-chuyen-nghiep-tai-thai-nguyen-ho-tro-van-chuyen-toan-quoc",
+    "destination": "/blog/sua-robot-hut-bui-chuyen-nghiep-tai-thai-nguyen-ho-tro-van-chuyen-toan-quoc-17",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/dich-vu-sua-chua-robot-hut-bui-chuyen-nghiep-phuc-vu-son-la",
+    "destination": "/blog/dich-vu-sua-chua-robot-hut-bui-chuyen-nghiep-phuc-vu-son-la-18",
+    "permanent": true
+  },
+  {
+    "source": "/blog/dich-vu-sua-chua-robot-hut-bui-chuyen-nghiep-phuc-vu-son-la",
+    "destination": "/blog/dich-vu-sua-chua-robot-hut-bui-chuyen-nghiep-phuc-vu-son-la-18",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/vesmart-trung-tam-sua-chua-thiet-bi-thong-minh-tin-cay-cho-bac-ninh",
+    "destination": "/blog/vesmart-trung-tam-sua-chua-thiet-bi-thong-minh-tin-cay-cho-bac-ninh-19",
+    "permanent": true
+  },
+  {
+    "source": "/blog/vesmart-trung-tam-sua-chua-thiet-bi-thong-minh-tin-cay-cho-bac-ninh",
+    "destination": "/blog/vesmart-trung-tam-sua-chua-thiet-bi-thong-minh-tin-cay-cho-bac-ninh-19",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/dich-vu-sua-chua-robot-hut-bui-tai-hai-phong-vesmart-cam-ket-chat-luong",
+    "destination": "/blog/dich-vu-sua-chua-robot-hut-bui-tai-hai-phong-vesmart-cam-ket-chat-luong-20",
+    "permanent": true
+  },
+  {
+    "source": "/blog/dich-vu-sua-chua-robot-hut-bui-tai-hai-phong-vesmart-cam-ket-chat-luong",
+    "destination": "/blog/dich-vu-sua-chua-robot-hut-bui-tai-hai-phong-vesmart-cam-ket-chat-luong-20",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-dong-hanh-cung-ninh-binh",
+    "destination": "/blog/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-dong-hanh-cung-ninh-binh-21",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-dong-hanh-cung-ninh-binh",
+    "destination": "/blog/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-dong-hanh-cung-ninh-binh-21",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/top-3-robot-hut-bui-tot-nhat-2023",
+    "destination": "/blog/top-3-robot-hut-bui-tot-nhat-2023-22",
+    "permanent": true
+  },
+  {
+    "source": "/blog/top-3-robot-hut-bui-tot-nhat-2023",
+    "destination": "/blog/top-3-robot-hut-bui-tot-nhat-2023-22",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/top-05-robot-hut-bui-tot-nhat-2023-tai-vesmart",
+    "destination": "/blog/top-05-robot-hut-bui-tot-nhat-2023-tai-vesmart-23",
+    "permanent": true
+  },
+  {
+    "source": "/blog/top-05-robot-hut-bui-tot-nhat-2023-tai-vesmart",
+    "destination": "/blog/top-05-robot-hut-bui-tot-nhat-2023-tai-vesmart-23",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/cach-len-lich-hen-gio-lam-viec-cho-robot-liectroux-bang-ung-dung-tren-dien-thoai",
+    "destination": "/blog/cach-len-lich-hen-gio-lam-viec-cho-robot-liectroux-bang-ung-dung-tren-dien-thoai-24",
+    "permanent": true
+  },
+  {
+    "source": "/blog/cach-len-lich-hen-gio-lam-viec-cho-robot-liectroux-bang-ung-dung-tren-dien-thoai",
+    "destination": "/blog/cach-len-lich-hen-gio-lam-viec-cho-robot-liectroux-bang-ung-dung-tren-dien-thoai-24",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-quan-ngu-hanh-son",
+    "destination": "/blog/sua-chua-robot-hut-bui-quan-ngu-hanh-son-25",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-quan-ngu-hanh-son",
+    "destination": "/blog/sua-chua-robot-hut-bui-quan-ngu-hanh-son-25",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-quan-hai-chau",
+    "destination": "/blog/sua-chua-robot-hut-bui-quan-hai-chau-26",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-quan-hai-chau",
+    "destination": "/blog/sua-chua-robot-hut-bui-quan-hai-chau-26",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-ecovacs-t5-hero",
+    "destination": "/blog/sua-chua-robot-hut-bui-ecovacs-t5-hero-27",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-ecovacs-t5-hero",
+    "destination": "/blog/sua-chua-robot-hut-bui-ecovacs-t5-hero-27",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-ecovacs-t5-power",
+    "destination": "/blog/sua-chua-robot-hut-bui-ecovacs-t5-power-28",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-ecovacs-t5-power",
+    "destination": "/blog/sua-chua-robot-hut-bui-ecovacs-t5-power-28",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-tai-thanh-hoa",
+    "destination": "/blog/sua-chua-robot-hut-bui-tai-thanh-hoa-29",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-tai-thanh-hoa",
+    "destination": "/blog/sua-chua-robot-hut-bui-tai-thanh-hoa-29",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/top-4-robot-hut-bui-tot-nhat-nam-2025",
+    "destination": "/blog/top-4-robot-hut-bui-tot-nhat-nam-2025-30",
+    "permanent": true
+  },
+  {
+    "source": "/blog/top-4-robot-hut-bui-tot-nhat-nam-2025",
+    "destination": "/blog/top-4-robot-hut-bui-tot-nhat-nam-2025-30",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-xiaomi-tai-da-nang-nhanh-chong-uy-tin-va-hieu-qua",
+    "destination": "/blog/sua-chua-robot-hut-bui-xiaomi-tai-da-nang-nhanh-chong-uy-tin-va-hieu-qua-31",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-xiaomi-tai-da-nang-nhanh-chong-uy-tin-va-hieu-qua",
+    "destination": "/blog/sua-chua-robot-hut-bui-xiaomi-tai-da-nang-nhanh-chong-uy-tin-va-hieu-qua-31",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-uy-tin-vesmart",
+    "destination": "/blog/sua-chua-robot-hut-bui-uy-tin-vesmart-32",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-uy-tin-vesmart",
+    "destination": "/blog/sua-chua-robot-hut-bui-uy-tin-vesmart-32",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-tuyen-quang",
+    "destination": "/blog/sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-tuyen-quang-33",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-tuyen-quang",
+    "destination": "/blog/sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-tuyen-quang-33",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/dich-vu-sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-lao-cai",
+    "destination": "/blog/dich-vu-sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-lao-cai-34",
+    "permanent": true
+  },
+  {
+    "source": "/blog/dich-vu-sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-lao-cai",
+    "destination": "/blog/dich-vu-sua-chua-robot-hut-bui-thiet-bi-thong-minh-tai-lao-cai-34",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-phuc-vu-quang-ninh",
+    "destination": "/blog/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-phuc-vu-quang-ninh-35",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-phuc-vu-quang-ninh",
+    "destination": "/blog/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-phuc-vu-quang-ninh-35",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/vesmart-giai-phap-sua-chua-robot-hut-bui-toan-dien-cho-hung-yen",
+    "destination": "/blog/vesmart-giai-phap-sua-chua-robot-hut-bui-toan-dien-cho-hung-yen-36",
+    "permanent": true
+  },
+  {
+    "source": "/blog/vesmart-giai-phap-sua-chua-robot-hut-bui-toan-dien-cho-hung-yen",
+    "destination": "/blog/vesmart-giai-phap-sua-chua-robot-hut-bui-toan-dien-cho-hung-yen-36",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-dong-hanh-cung-ha-tinh",
+    "destination": "/blog/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-dong-hanh-cung-ha-tinh-37",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-dong-hanh-cung-ha-tinh",
+    "destination": "/blog/sua-chua-robot-hut-bui-chuyen-nghiep-vesmart-dong-hanh-cung-ha-tinh-37",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-da-nang",
+    "destination": "/blog/sua-chua-robot-hut-bui-da-nang-38",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-da-nang",
+    "destination": "/blog/sua-chua-robot-hut-bui-da-nang-38",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-robot-hut-bui-chat-luong-tai-da-nang",
+    "destination": "/blog/sua-robot-hut-bui-chat-luong-tai-da-nang-39",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-robot-hut-bui-chat-luong-tai-da-nang",
+    "destination": "/blog/sua-robot-hut-bui-chat-luong-tai-da-nang-39",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-may-hut-bui-cam-tay-dreame-v9",
+    "destination": "/blog/sua-may-hut-bui-cam-tay-dreame-v9-40",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-may-hut-bui-cam-tay-dreame-v9",
+    "destination": "/blog/sua-may-hut-bui-cam-tay-dreame-v9-40",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-robot-hut-bui-dreame-z10-pro",
+    "destination": "/blog/sua-robot-hut-bui-dreame-z10-pro-41",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-robot-hut-bui-dreame-z10-pro",
+    "destination": "/blog/sua-robot-hut-bui-dreame-z10-pro-41",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-may-hut-bui-uy-tin-tai-da-nang",
+    "destination": "/blog/sua-may-hut-bui-uy-tin-tai-da-nang-42",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-may-hut-bui-uy-tin-tai-da-nang",
+    "destination": "/blog/sua-may-hut-bui-uy-tin-tai-da-nang-42",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/may-hut-bui-cam-tay-dyson-sua-chua-tai-vesmart",
+    "destination": "/blog/may-hut-bui-cam-tay-dyson-sua-chua-tai-vesmart-43",
+    "permanent": true
+  },
+  {
+    "source": "/blog/may-hut-bui-cam-tay-dyson-sua-chua-tai-vesmart",
+    "destination": "/blog/may-hut-bui-cam-tay-dyson-sua-chua-tai-vesmart-43",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/trung-tam-sua-robot-hut-bui-thiet-bi-thong-minh-tai-lai-chau",
+    "destination": "/blog/trung-tam-sua-robot-hut-bui-thiet-bi-thong-minh-tai-lai-chau-44",
+    "permanent": true
+  },
+  {
+    "source": "/blog/trung-tam-sua-robot-hut-bui-thiet-bi-thong-minh-tai-lai-chau",
+    "destination": "/blog/trung-tam-sua-robot-hut-bui-thiet-bi-thong-minh-tai-lai-chau-44",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/trung-tam-sua-chua-robot-hut-bui-vesmart-giai-phap-toan-dien-cho-dien-bien-va-ca-nuoc",
+    "destination": "/blog/trung-tam-sua-chua-robot-hut-bui-vesmart-giai-phap-toan-dien-cho-dien-bien-va-ca-nuoc-45",
+    "permanent": true
+  },
+  {
+    "source": "/blog/trung-tam-sua-chua-robot-hut-bui-vesmart-giai-phap-toan-dien-cho-dien-bien-va-ca-nuoc",
+    "destination": "/blog/trung-tam-sua-chua-robot-hut-bui-vesmart-giai-phap-toan-dien-cho-dien-bien-va-ca-nuoc-45",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/trung-tam-sua-chua-robot-hut-bui-vesmart-giai-phap-toan-dien-cho-lang-son-va-ca-nuoc",
+    "destination": "/blog/trung-tam-sua-chua-robot-hut-bui-vesmart-giai-phap-toan-dien-cho-lang-son-va-ca-nuoc-46",
+    "permanent": true
+  },
+  {
+    "source": "/blog/trung-tam-sua-chua-robot-hut-bui-vesmart-giai-phap-toan-dien-cho-lang-son-va-ca-nuoc",
+    "destination": "/blog/trung-tam-sua-chua-robot-hut-bui-vesmart-giai-phap-toan-dien-cho-lang-son-va-ca-nuoc-46",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-robot-hut-bui-thiet-bi-thong-minh-giai-phap-toan-dien-cho-phu-tho",
+    "destination": "/blog/sua-chua-robot-hut-bui-thiet-bi-thong-minh-giai-phap-toan-dien-cho-phu-tho-47",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-robot-hut-bui-thiet-bi-thong-minh-giai-phap-toan-dien-cho-phu-tho",
+    "destination": "/blog/sua-chua-robot-hut-bui-thiet-bi-thong-minh-giai-phap-toan-dien-cho-phu-tho-47",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/trung-tam-sua-chua-robot-hut-bui-vesmart-dong-hanh-cung-khach-hang-ha-noi",
+    "destination": "/blog/trung-tam-sua-chua-robot-hut-bui-vesmart-dong-hanh-cung-khach-hang-ha-noi-48",
+    "permanent": true
+  },
+  {
+    "source": "/blog/trung-tam-sua-chua-robot-hut-bui-vesmart-dong-hanh-cung-khach-hang-ha-noi",
+    "destination": "/blog/trung-tam-sua-chua-robot-hut-bui-vesmart-dong-hanh-cung-khach-hang-ha-noi-48",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/vesmart-trung-tam-sua-chua-robot-hut-bui-uy-tin-phuc-vu-nghe-an",
+    "destination": "/blog/vesmart-trung-tam-sua-chua-robot-hut-bui-uy-tin-phuc-vu-nghe-an-49",
+    "permanent": true
+  },
+  {
+    "source": "/blog/vesmart-trung-tam-sua-chua-robot-hut-bui-uy-tin-phuc-vu-nghe-an",
+    "destination": "/blog/vesmart-trung-tam-sua-chua-robot-hut-bui-uy-tin-phuc-vu-nghe-an-49",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-may-hut-bui-gia-tot-2026-tu-cac-dong-roborock-ecovacs-xiaomi",
+    "destination": "/blog/sua-may-hut-bui-gia-tot-2026-tu-cac-dong-roborock-ecovacs-xiaomi-50",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-may-hut-bui-gia-tot-2026-tu-cac-dong-roborock-ecovacs-xiaomi",
+    "destination": "/blog/sua-may-hut-bui-gia-tot-2026-tu-cac-dong-roborock-ecovacs-xiaomi-50",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-may-hut-bui-uy-tin-gia-tot-cho-moi-nha",
+    "destination": "/blog/sua-may-hut-bui-uy-tin-gia-tot-cho-moi-nha-51",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-may-hut-bui-uy-tin-gia-tot-cho-moi-nha",
+    "destination": "/blog/sua-may-hut-bui-uy-tin-gia-tot-cho-moi-nha-51",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/phan-tich-ve-robot-hut-bui-roborock-q-revo-5ae",
+    "destination": "/blog/phan-tich-ve-robot-hut-bui-roborock-q-revo-5ae-52",
+    "permanent": true
+  },
+  {
+    "source": "/blog/phan-tich-ve-robot-hut-bui-roborock-q-revo-5ae",
+    "destination": "/blog/phan-tich-ve-robot-hut-bui-roborock-q-revo-5ae-52",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-may-hut-rac-lau-san-cam-tay-may-hut-bui-cam-tay-chat-luong-gia-tot",
+    "destination": "/blog/sua-chua-may-hut-rac-lau-san-cam-tay-may-hut-bui-cam-tay-chat-luong-gia-tot-53",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-may-hut-rac-lau-san-cam-tay-may-hut-bui-cam-tay-chat-luong-gia-tot",
+    "destination": "/blog/sua-chua-may-hut-rac-lau-san-cam-tay-may-hut-bui-cam-tay-chat-luong-gia-tot-53",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-roborock-saros-10r",
+    "destination": "/blog/sua-chua-roborock-saros-10r-54",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-roborock-saros-10r",
+    "destination": "/blog/sua-chua-roborock-saros-10r-54",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/ecovacs-x5-pro-plus-lam-sach-khong-con-hieu-qua",
+    "destination": "/blog/ecovacs-x5-pro-plus-lam-sach-khong-con-hieu-qua-55",
+    "permanent": true
+  },
+  {
+    "source": "/blog/ecovacs-x5-pro-plus-lam-sach-khong-con-hieu-qua",
+    "destination": "/blog/ecovacs-x5-pro-plus-lam-sach-khong-con-hieu-qua-55",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/sua-chua-may-hut-bui-tai-hue-uy-tin-chat-luong",
+    "destination": "/blog/sua-chua-may-hut-bui-tai-hue-uy-tin-chat-luong-56",
+    "permanent": true
+  },
+  {
+    "source": "/blog/sua-chua-may-hut-bui-tai-hue-uy-tin-chat-luong",
+    "destination": "/blog/sua-chua-may-hut-bui-tai-hue-uy-tin-chat-luong-56",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/khac-phuc-loi-roborock-5ae-khong-ve-tram-sac-hieu-qua",
+    "destination": "/blog/khac-phuc-loi-roborock-5ae-khong-ve-tram-sac-hieu-qua-57",
+    "permanent": true
+  },
+  {
+    "source": "/blog/khac-phuc-loi-roborock-5ae-khong-ve-tram-sac-hieu-qua",
+    "destination": "/blog/khac-phuc-loi-roborock-5ae-khong-ve-tram-sac-hieu-qua-57",
+    "permanent": true
+  },
+  {
+    "source": "/bai-viet/may-hut-am-khong-hoat-ong",
+    "destination": "/blog/may-hut-am-khong-hoat-ong-58",
+    "permanent": true
+  },
+  {
+    "source": "/blog/may-hut-am-khong-hoat-ong",
+    "destination": "/blog/may-hut-am-khong-hoat-ong-58",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/bo-phu-kien-cho-robot-dreame-x50-ultra-hang-chinh-hang-69bb762510ed02191523540e",
+    "destination": "/products/bo-phu-kien-cho-robot-dreame-x50-ultra-hang-chinh-hang-1",
+    "permanent": true
+  },
+  {
+    "source": "/products/bo-phu-kien-cho-robot-dreame-x50-ultra-hang-chinh-hang-69bb762510ed02191523540e",
+    "destination": "/products/bo-phu-kien-cho-robot-dreame-x50-ultra-hang-chinh-hang-1",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/nuoc-lau-san-dam-dac-dung-cho-robot-ecovacs-x11-pro-omni-x11-omnicyclone-dung-tich-1l-hang-chinh-hang-69bb762510ed02191523540f",
+    "destination": "/products/nuoc-lau-san-dam-dac-dung-cho-robot-ecovacs-x11-pro-omni-x11-omnicyclone-dung-tich-1l-hang-chinh-hang-2",
+    "permanent": true
+  },
+  {
+    "source": "/products/nuoc-lau-san-dam-dac-dung-cho-robot-ecovacs-x11-pro-omni-x11-omnicyclone-dung-tich-1l-hang-chinh-hang-69bb762510ed02191523540f",
+    "destination": "/products/nuoc-lau-san-dam-dac-dung-cho-robot-ecovacs-x11-pro-omni-x11-omnicyclone-dung-tich-1l-hang-chinh-hang-2",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/bo-choi-chinh-thay-the-cho-robot-hut-bui-roborock-s8-maxv-ultra-69bb762510ed021915235410",
+    "destination": "/products/bo-choi-chinh-thay-the-cho-robot-hut-bui-roborock-s8-maxv-ultra-3",
+    "permanent": true
+  },
+  {
+    "source": "/products/bo-choi-chinh-thay-the-cho-robot-hut-bui-roborock-s8-maxv-ultra-69bb762510ed021915235410",
+    "destination": "/products/bo-choi-chinh-thay-the-cho-robot-hut-bui-roborock-s8-maxv-ultra-3",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/bo-choi-chinh-dung-cho-robot-hut-bui-roborock-qrevo-curv-saros-10r-saros-10-69bb762610ed021915235411",
+    "destination": "/products/bo-choi-chinh-dung-cho-robot-hut-bui-roborock-qrevo-curv-saros-10r-saros-10-4",
+    "permanent": true
+  },
+  {
+    "source": "/products/bo-choi-chinh-dung-cho-robot-hut-bui-roborock-qrevo-curv-saros-10r-saros-10-69bb762610ed021915235411",
+    "destination": "/products/bo-choi-chinh-dung-cho-robot-hut-bui-roborock-qrevo-curv-saros-10r-saros-10-4",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/nuoc-lau-kinh-cho-robot-ecovacs-w1-pro-w2-omni-dung-tich-1l-hang-chinh-hang-69bb762610ed021915235412",
+    "destination": "/products/nuoc-lau-kinh-cho-robot-ecovacs-w1-pro-w2-omni-dung-tich-1l-hang-chinh-hang-5",
+    "permanent": true
+  },
+  {
+    "source": "/products/nuoc-lau-kinh-cho-robot-ecovacs-w1-pro-w2-omni-dung-tich-1l-hang-chinh-hang-69bb762610ed021915235412",
+    "destination": "/products/nuoc-lau-kinh-cho-robot-ecovacs-w1-pro-w2-omni-dung-tich-1l-hang-chinh-hang-5",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/con-lan-cho-may-hut-bui-lau-san-tineco-floor-one-s9-artist-chinh-hang-69bb762610ed021915235413",
+    "destination": "/products/con-lan-cho-may-hut-bui-lau-san-tineco-floor-one-s9-artist-chinh-hang-6",
+    "permanent": true
+  },
+  {
+    "source": "/products/con-lan-cho-may-hut-bui-lau-san-tineco-floor-one-s9-artist-chinh-hang-69bb762610ed021915235413",
+    "destination": "/products/con-lan-cho-may-hut-bui-lau-san-tineco-floor-one-s9-artist-chinh-hang-6",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/nuoc-lau-san-dung-cho-may-hut-bui-lau-nha-tineco-1l-hang-chinh-hang-69bb762610ed021915235414",
+    "destination": "/products/nuoc-lau-san-dung-cho-may-hut-bui-lau-nha-tineco-1l-hang-chinh-hang-7",
+    "permanent": true
+  },
+  {
+    "source": "/products/nuoc-lau-san-dung-cho-may-hut-bui-lau-nha-tineco-1l-hang-chinh-hang-69bb762610ed021915235414",
+    "destination": "/products/nuoc-lau-san-dung-cho-may-hut-bui-lau-nha-tineco-1l-hang-chinh-hang-7",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/bo-phu-kien-robot-hut-bui-lau-nha-ecovacs-deebot-t80-omni-69bb762610ed021915235415",
+    "destination": "/products/bo-phu-kien-robot-hut-bui-lau-nha-ecovacs-deebot-t80-omni-8",
+    "permanent": true
+  },
+  {
+    "source": "/products/bo-phu-kien-robot-hut-bui-lau-nha-ecovacs-deebot-t80-omni-69bb762610ed021915235415",
+    "destination": "/products/bo-phu-kien-robot-hut-bui-lau-nha-ecovacs-deebot-t80-omni-8",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/choi-chinh-chong-roi-dung-cho-robot-ecovacs-deebot-t50-pro-omni-n30-pro-omni-x8-pro-omni-t80-omni-69bb762710ed021915235416",
+    "destination": "/products/choi-chinh-chong-roi-dung-cho-robot-ecovacs-deebot-t50-pro-omni-n30-pro-omni-x8-pro-omni-t80-omni-9",
+    "permanent": true
+  },
+  {
+    "source": "/products/choi-chinh-chong-roi-dung-cho-robot-ecovacs-deebot-t50-pro-omni-n30-pro-omni-x8-pro-omni-t80-omni-69bb762710ed021915235416",
+    "destination": "/products/choi-chinh-chong-roi-dung-cho-robot-ecovacs-deebot-t50-pro-omni-n30-pro-omni-x8-pro-omni-t80-omni-9",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/bo-phu-kien-cho-may-hut-bui-lau-nha-dreame-h14-ultra-hang-chinh-hang-69bb762710ed021915235417",
+    "destination": "/products/bo-phu-kien-cho-may-hut-bui-lau-nha-dreame-h14-ultra-hang-chinh-hang-10",
+    "permanent": true
+  },
+  {
+    "source": "/products/bo-phu-kien-cho-may-hut-bui-lau-nha-dreame-h14-ultra-hang-chinh-hang-69bb762710ed021915235417",
+    "destination": "/products/bo-phu-kien-cho-may-hut-bui-lau-nha-dreame-h14-ultra-hang-chinh-hang-10",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/tam-loc-bui-dung-cho-may-hut-bui-lau-nha-roborock-dyad-69bb762710ed021915235418",
+    "destination": "/products/tam-loc-bui-dung-cho-may-hut-bui-lau-nha-roborock-dyad-11",
+    "permanent": true
+  },
+  {
+    "source": "/products/tam-loc-bui-dung-cho-may-hut-bui-lau-nha-roborock-dyad-69bb762710ed021915235418",
+    "destination": "/products/tam-loc-bui-dung-cho-may-hut-bui-lau-nha-roborock-dyad-11",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/tam-loc-bui-roborock-s7-s7-maxv-s7-maxv-ultra-g10-69bb762710ed021915235419",
+    "destination": "/products/tam-loc-bui-roborock-s7-s7-maxv-s7-maxv-ultra-g10-12",
+    "permanent": true
+  },
+  {
+    "source": "/products/tam-loc-bui-roborock-s7-s7-maxv-s7-maxv-ultra-g10-69bb762710ed021915235419",
+    "destination": "/products/tam-loc-bui-roborock-s7-s7-maxv-s7-maxv-ultra-g10-12",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/con-lan-lau-thay-the-cho-may-hut-bui-roborock-f25-series-69bb762810ed02191523541a",
+    "destination": "/products/con-lan-lau-thay-the-cho-may-hut-bui-roborock-f25-series-13",
+    "permanent": true
+  },
+  {
+    "source": "/products/con-lan-lau-thay-the-cho-may-hut-bui-roborock-f25-series-69bb762810ed02191523541a",
+    "destination": "/products/con-lan-lau-thay-the-cho-may-hut-bui-roborock-f25-series-13",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/bo-cap-nuoc-tu-dong-cho-robot-ecovacs-deebot-x2-omni-hang-chinh-hang-69bb762810ed02191523541b",
+    "destination": "/products/bo-cap-nuoc-tu-dong-cho-robot-ecovacs-deebot-x2-omni-hang-chinh-hang-14",
+    "permanent": true
+  },
+  {
+    "source": "/products/bo-cap-nuoc-tu-dong-cho-robot-ecovacs-deebot-x2-omni-hang-chinh-hang-69bb762810ed02191523541b",
+    "destination": "/products/bo-cap-nuoc-tu-dong-cho-robot-ecovacs-deebot-x2-omni-hang-chinh-hang-14",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/bo-phu-kien-robot-ecovacs-deebot-x5-family-hang-chinh-hang-69bb762810ed02191523541c",
+    "destination": "/products/bo-phu-kien-robot-ecovacs-deebot-x5-family-hang-chinh-hang-15",
+    "permanent": true
+  },
+  {
+    "source": "/products/bo-phu-kien-robot-ecovacs-deebot-x5-family-hang-chinh-hang-69bb762810ed02191523541c",
+    "destination": "/products/bo-phu-kien-robot-ecovacs-deebot-x5-family-hang-chinh-hang-15",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/bo-phu-kien-cho-robot-ecovacs-deebot-t50-pro-omni-deebot-t30c-2026-69bb762810ed02191523541d",
+    "destination": "/products/bo-phu-kien-cho-robot-ecovacs-deebot-t50-pro-omni-deebot-t30c-2026-16",
+    "permanent": true
+  },
+  {
+    "source": "/products/bo-phu-kien-cho-robot-ecovacs-deebot-t50-pro-omni-deebot-t30c-2026-69bb762810ed02191523541d",
+    "destination": "/products/bo-phu-kien-cho-robot-ecovacs-deebot-t50-pro-omni-deebot-t30c-2026-16",
+    "permanent": true
+  },
+  {
+    "source": "/san-pham/bo-phu-kien-cho-robot-ecovacs-deebot-x8-pro-omni-69bb762810ed02191523541e",
+    "destination": "/products/bo-phu-kien-cho-robot-ecovacs-deebot-x8-pro-omni-17",
+    "permanent": true
+  },
+  {
+    "source": "/products/bo-phu-kien-cho-robot-ecovacs-deebot-x8-pro-omni-69bb762810ed02191523541e",
+    "destination": "/products/bo-phu-kien-cho-robot-ecovacs-deebot-x8-pro-omni-17",
+    "permanent": true
+  }
+]

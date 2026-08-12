@@ -1,0 +1,5 @@
+# Deploy folder is local-only (VPS passwords, R2 keys, tarballs).
+# Keep a short README in git via root !deploy/README.md exception.
+*
+!.gitignore
+!README.md

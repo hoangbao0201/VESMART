@@ -1,0 +1,641 @@
+/* VESMART article markdown - GitHub / Vercel docs inspired, design tokens */
+
+.vesmart-md-content {
+  --md-body: color-mix(in srgb, var(--foreground) 92%, var(--muted-foreground));
+  --md-heading: var(--foreground);
+  --md-muted: color-mix(in srgb, var(--foreground) 62%, var(--muted-foreground));
+  color: var(--md-body);
+  font-size: 1.125rem; /* Dev.to-like body */
+  line-height: 1.7;
+  letter-spacing: 0.005em;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Article detail: fill the card column (Dev.to crisp article) */
+.vesmart-md-content.vesmart-md-article {
+  max-width: none;
+}
+
+.vesmart-md-content > *:first-child {
+  margin-top: 0;
+}
+
+.vesmart-md-content > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Headings - balanced against body */
+.vesmart-md-content h1,
+.vesmart-md-content h2,
+.vesmart-md-content h3,
+.vesmart-md-content h4,
+.vesmart-md-content h5,
+.vesmart-md-content h6 {
+  color: var(--md-heading);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+  scroll-margin-top: 5.5rem;
+}
+
+.vesmart-md-content h1 {
+  font-size: 1.65rem;
+  margin: 2rem 0 0.75rem;
+}
+
+.vesmart-md-content h2 {
+  font-size: 1.4rem;
+  margin: 2.35rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.vesmart-md-content h3 {
+  font-size: 1.2rem;
+  margin: 1.85rem 0 0.6rem;
+}
+
+.vesmart-md-content h4 {
+  font-size: 1.05rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.vesmart-md-content h5,
+.vesmart-md-content h6 {
+  font-size: 1rem;
+  margin: 1.25rem 0 0.45rem;
+  color: var(--md-muted);
+}
+
+.vesmart-md-content .md-heading-anchor {
+  float: left;
+  margin-left: -1.1em;
+  padding-right: 0.25em;
+  opacity: 0;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.vesmart-md-content h1:hover .md-heading-anchor,
+.vesmart-md-content h2:hover .md-heading-anchor,
+.vesmart-md-content h3:hover .md-heading-anchor,
+.vesmart-md-content h4:hover .md-heading-anchor {
+  opacity: 0.55;
+}
+
+/* Paragraphs */
+.vesmart-md-content p {
+  margin: 0.95em 0;
+  color: var(--md-body);
+}
+
+.vesmart-md-content strong {
+  color: var(--md-heading);
+  font-weight: 650;
+}
+
+/* Links */
+.vesmart-md-content a.md-link,
+.vesmart-md-content a {
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--primary) 35%, transparent);
+  text-underline-offset: 3px;
+  transition: color 150ms, text-decoration-color 150ms;
+}
+
+.vesmart-md-content a.md-link:hover,
+.vesmart-md-content a:hover {
+  color: color-mix(in srgb, var(--primary) 85%, var(--foreground));
+  text-decoration-color: var(--primary);
+}
+
+.vesmart-md-content a.md-link-external::after {
+  content: "↗";
+  display: inline-block;
+  margin-left: 0.2em;
+  font-size: 0.75em;
+  opacity: 0.65;
+  text-decoration: none;
+}
+
+/* Lists - restore bullets (Tailwind preflight resets them) */
+.vesmart-md-content ul {
+  list-style-type: disc;
+  list-style-position: outside;
+  margin: 1em 0;
+  padding-left: 1.5rem;
+}
+
+.vesmart-md-content ol {
+  list-style-type: decimal;
+  list-style-position: outside;
+  margin: 1em 0;
+  padding-left: 1.5rem;
+}
+
+.vesmart-md-content li {
+  margin: 0.4em 0;
+  padding-left: 0.25rem;
+  line-height: 1.7;
+}
+
+.vesmart-md-content li + li {
+  margin-top: 0.35em;
+}
+
+.vesmart-md-content li > ul,
+.vesmart-md-content li > ol {
+  margin: 0.4em 0 0.5em;
+}
+
+.vesmart-md-content ul ul {
+  list-style-type: circle;
+}
+
+.vesmart-md-content ul ul ul {
+  list-style-type: square;
+}
+
+.vesmart-md-content ol ol {
+  list-style-type: lower-alpha;
+}
+
+.vesmart-md-content ol ol ol {
+  list-style-type: lower-roman;
+}
+
+/* Task lists */
+.vesmart-md-content ul.contains-task-list {
+  list-style: none;
+  padding-left: 0.25rem;
+}
+
+.vesmart-md-content li.task-list-item {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding-left: 0;
+}
+
+.vesmart-md-content .task-list-item-checkbox {
+  margin-top: 0.4em;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* Blockquote */
+.vesmart-md-content blockquote {
+  margin: 1.4em 0;
+  padding: 0.85rem 1.1rem;
+  border-left: 3px solid var(--primary);
+  background: color-mix(in srgb, var(--primary) 6%, var(--secondary));
+  border-radius: 0 12px 12px 0;
+  color: var(--md-muted);
+  font-style: italic;
+}
+
+.vesmart-md-content blockquote p {
+  margin: 0.4em 0;
+  color: inherit;
+}
+
+.vesmart-md-content blockquote strong {
+  font-style: normal;
+}
+
+/* Inline code */
+.vesmart-md-content :not(pre) > code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--primary) 70%, var(--foreground));
+  background: color-mix(in srgb, var(--primary) 8%, var(--secondary));
+  border: 1px solid color-mix(in srgb, var(--primary) 12%, var(--border));
+  padding: 0.12em 0.4em;
+  border-radius: 6px;
+}
+
+/* Code blocks */
+.vesmart-md-content .md-code-block {
+  margin: 1.5em 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.vesmart-md-content .md-code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.45rem 0.75rem;
+  background: var(--secondary);
+  border-bottom: 1px solid var(--border);
+  min-height: 2.25rem;
+}
+
+.vesmart-md-content .md-code-title {
+  min-width: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--md-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.vesmart-md-content .md-code-title span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vesmart-md-content .md-code-copy {
+  margin-left: auto;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  border-radius: 8px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms, color 150ms;
+}
+
+.vesmart-md-content .md-code-copy:hover {
+  background: var(--secondary);
+  color: var(--primary);
+}
+
+.vesmart-md-content .md-code-copy:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.vesmart-md-content .md-code-block pre.hljs,
+.vesmart-md-content pre {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  background: color-mix(in srgb, var(--secondary) 70%, var(--card));
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.vesmart-md-content .md-code-block pre code,
+.vesmart-md-content pre code {
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  color: inherit;
+  font-size: inherit;
+  font-weight: 400;
+}
+
+/* highlight.js token colors (light-friendly) */
+.vesmart-md-content .hljs-comment,
+.vesmart-md-content .hljs-quote {
+  color: #6b7280;
+  font-style: italic;
+}
+.vesmart-md-content .hljs-keyword,
+.vesmart-md-content .hljs-selector-tag,
+.vesmart-md-content .hljs-literal {
+  color: #0f766e;
+}
+.vesmart-md-content .hljs-string,
+.vesmart-md-content .hljs-doctag {
+  color: #b45309;
+}
+.vesmart-md-content .hljs-number,
+.vesmart-md-content .hljs-attr {
+  color: #c2410c;
+}
+.vesmart-md-content .hljs-title,
+.vesmart-md-content .hljs-section,
+.vesmart-md-content .hljs-name {
+  color: #1d4ed8;
+}
+.vesmart-md-content .hljs-built_in,
+.vesmart-md-content .hljs-type {
+  color: #7c3aed;
+}
+.vesmart-md-content .hljs-meta,
+.vesmart-md-content .hljs-params {
+  color: #475569;
+}
+
+.dark .vesmart-md-content .hljs-comment {
+  color: #94a3b8;
+}
+.dark .vesmart-md-content .hljs-keyword {
+  color: #2dd4bf;
+}
+.dark .vesmart-md-content .hljs-string {
+  color: #fbbf24;
+}
+.dark .vesmart-md-content .hljs-title {
+  color: #93c5fd;
+}
+
+/* Tables */
+.vesmart-md-content .md-table-wrap {
+  margin: 1.5em 0;
+  max-width: 100%;
+  max-height: min(70vh, 28rem);
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.vesmart-md-content table {
+  width: 100%;
+  min-width: 20rem;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+@media (max-width: 639px) {
+  .vesmart-md-content .md-table-wrap {
+    max-height: min(60vh, 22rem);
+  }
+
+  .vesmart-md-content table {
+    min-width: 18rem;
+    font-size: 0.875rem;
+  }
+
+  .vesmart-md-content th,
+  .vesmart-md-content td {
+    padding: 0.55rem 0.65rem;
+  }
+}
+
+.vesmart-md-content thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--secondary);
+  color: var(--md-heading);
+  font-weight: 650;
+  text-align: left;
+}
+
+.vesmart-md-content th,
+.vesmart-md-content td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.7rem 0.9rem;
+  vertical-align: top;
+}
+
+.vesmart-md-content tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--secondary) 45%, transparent);
+}
+
+.vesmart-md-content tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Images */
+.vesmart-md-content .md-figure {
+  margin: 1.5em 0;
+}
+
+.vesmart-md-content .md-image,
+.vesmart-md-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  cursor: zoom-in;
+}
+
+.vesmart-md-content figcaption {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--md-muted);
+}
+
+/* HR */
+.vesmart-md-content hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.25em 0;
+}
+
+/* Layout with TOC */
+.vesmart-md-layout {
+  display: grid;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .vesmart-md-layout.has-toc {
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 240px);
+    align-items: start;
+    gap: 2rem;
+  }
+}
+
+/* Blog article shell - Dev.to crisp card + sticky TOC */
+.vesmart-article-shell {
+  display: grid;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 920px;
+  margin-inline: auto;
+  min-width: 0;
+}
+
+.vesmart-article-shell > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.vesmart-article-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.vesmart-article-body {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.vesmart-article-shell.has-toc {
+  max-width: none;
+}
+
+.vesmart-article-toc .vesmart-md-toc {
+  height: fit-content;
+}
+
+@media (min-width: 1024px) {
+  .vesmart-article-shell.has-toc {
+    grid-template-columns: minmax(0, 880px) minmax(220px, 260px);
+    justify-content: center;
+    align-items: start;
+    gap: 1.5rem;
+  }
+
+  .vesmart-article-toc .vesmart-md-toc {
+    position: sticky;
+    top: 5.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .vesmart-article-shell.has-toc {
+    grid-template-columns: minmax(0, 920px) minmax(240px, 280px);
+    gap: 2rem;
+  }
+}
+
+/* TOC */
+.vesmart-md-toc {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  padding: 0.85rem 1rem;
+}
+
+.vesmart-md-toc-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--md-muted);
+  margin: 0 0 0.65rem;
+}
+
+.vesmart-md-toc nav {
+  max-height: min(70vh, 28rem);
+  overflow-y: auto;
+}
+
+.vesmart-md-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vesmart-md-toc li {
+  margin: 0;
+  padding: 0;
+}
+
+.vesmart-md-toc a {
+  display: block;
+  padding: 0.3rem 0.45rem;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--md-muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: color 150ms, background 150ms, border-color 150ms;
+}
+
+.vesmart-md-toc a:hover {
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.vesmart-md-toc a.is-active {
+  color: var(--primary);
+  border-left-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  font-weight: 600;
+}
+
+.vesmart-md-toc .level-3 {
+  padding-left: 0.75rem;
+}
+
+.vesmart-md-toc .level-4 {
+  padding-left: 1.35rem;
+}
+
+@media (min-width: 1024px) {
+  .vesmart-md-toc {
+    position: sticky;
+    top: 5.5rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .vesmart-md-toc details summary {
+    cursor: pointer;
+    list-style: none;
+    font-size: 0.875rem;
+    font-weight: 650;
+    color: var(--foreground);
+  }
+
+  .vesmart-md-toc details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .vesmart-md-toc details[open] .vesmart-md-toc-panel {
+    margin-top: 0.65rem;
+  }
+}
+
+/* Lightbox */
+.vesmart-md-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgb(15 23 42 / 0.82);
+  cursor: zoom-out;
+}
+
+.vesmart-md-lightbox img {
+  max-width: min(96vw, 1100px);
+  max-height: 88vh;
+  border-radius: 12px;
+  border: 1px solid rgb(255 255 255 / 0.15);
+  cursor: default;
+}
+
+.vesmart-md-lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.12);
+  color: white;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.vesmart-md-lightbox-close:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}

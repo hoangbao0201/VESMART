@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f8f8f8;
+  --foreground: #121417;
+  --muted: #5c6370;
+  --muted-foreground: #5c6370;
+  --card: #ffffff;
+  --card-foreground: #121417;
+  --border: #e4e6ea;
+  --input: #e4e6ea;
+  --ring: #0f766e;
+  --primary: #0f766e;
+  --primary-foreground: #f8fafc;
+  --secondary: #eceeef;
+  --secondary-foreground: #1a1d21;
+  --accent: #0f766e;
+  --accent-foreground: #f8fafc;
+  --destructive: #b42318;
+  --destructive-foreground: #fff;
+  --hero-from: #0b1220;
+  --hero-to: #16304a;
+  --hero-foreground: #f8fafc;
+  --hero-muted: #c5d0dc;
+  --radius: 12px;
+  --shadow-sm: 0 1px 2px rgb(16 24 40 / 0.04);
+  --shadow-md: 0 4px 12px rgb(16 24 40 / 0.06);
+}
+
+.dark {
+  --background: #0b0d10;
+  --foreground: #f3f4f6;
+  --muted: #9aa3b2;
+  --muted-foreground: #9aa3b2;
+  --card: #12151a;
+  --card-foreground: #f3f4f6;
+  --border: #262b33;
+  --input: #262b33;
+  --ring: #2dd4bf;
+  --primary: #14b8a6;
+  --primary-foreground: #042f2e;
+  --secondary: #1a1f27;
+  --secondary-foreground: #f3f4f6;
+  --accent: #14b8a6;
+  --accent-foreground: #042f2e;
+  --destructive: #f97066;
+  --destructive-foreground: #1c1917;
+  --hero-from: #070a0f;
+  --hero-to: #10233a;
+  --hero-foreground: #f8fafc;
+  --hero-muted: #a8b3c2;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
+  --shadow-md: 0 4px 16px rgb(0 0 0 / 0.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-hero-from: var(--hero-from);
+  --color-hero-to: var(--hero-to);
+  --color-hero-foreground: var(--hero-foreground);
+  --color-hero-muted: var(--hero-muted);
+  --font-sans: var(--font-inter);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply h-full;
+  }
+
+  body {
+    @apply min-h-full bg-background font-sans text-foreground antialiased;
+  }
+
+  a {
+    @apply transition-colors duration-150;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer utilities {
+  .animate-scroll {
+    display: flex;
+    width: max-content;
+    animation: vesmart-scroll 28s linear infinite;
+  }
+
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+
+  .animate-contact-pulse {
+    animation: vesmart-contact-pulse 1.3s ease-out infinite;
+  }
+
+  .animate-contact-shake {
+    animation: vesmart-contact-shake 4s ease-in-out infinite;
+  }
+}
+
+@keyframes vesmart-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes vesmart-contact-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+}
+
+@keyframes vesmart-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.vesmart-fade-in {
+  animation: vesmart-fade-in 0.28s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vesmart-fade-in {
+    animation: none;
+  }
+}
+
+@keyframes vesmart-contact-shake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  10%,
+  30% {
+    transform: rotate(-12deg);
+  }
+  20%,
+  40% {
+    transform: rotate(12deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+}

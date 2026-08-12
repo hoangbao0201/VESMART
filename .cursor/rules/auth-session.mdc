@@ -1,0 +1,13 @@
+---
+description: Auth session JWT + silent refresh cho VESMART
+globs: fe/src/lib/api/auth.ts,fe/src/lib/api/token.ts,fe/src/lib/api/client.ts,fe/src/hooks/useAuth.tsx,be/src/modules/auth/**
+alwaysApply: false
+---
+
+# Auth VESMART
+
+- Access JWT dài (prod ~7d), refresh ~365d; env `JWT_EXPIRES_IN` / `JWT_REFRESH_EXPIRES_IN`.
+- FE: lưu access + refresh localStorage; cookie access; `POST /auth/refresh` khi 401 (single-flight trong `client.ts`).
+- Login/register: `email.trim().toLowerCase()` ở FE và BE.
+- `useAuth` bootstrap: nếu access fail vẫn thử refresh trước khi `clearAuthTokens`.
+- Không log token; không commit JWT secrets.

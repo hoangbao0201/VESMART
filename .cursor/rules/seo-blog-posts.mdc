@@ -1,0 +1,48 @@
+---
+description: Quy tắc viết và đăng bài blog SEO VESMART (nội dung, slug, ảnh ImageCategory, publish)
+alwaysApply: false
+---
+
+# SEO blog posts (VESMART)
+
+Áp dụng khi user yêu cầu **viết / đăng bài viết SEO** (repair, review, local, model…).
+
+## Output bắt buộc
+
+Mỗi bài gồm: `title`, `baseSlug`, `summary` (~150–160 ký tự), `seoTitle`, `seoDescription`, `content` Markdown, `thumbnail` + 2–4 ảnh CDN trong content, category post phù hợp (`sua-chua` / `huong-dan` / `reviews`).
+
+Đăng production bằng script Prisma one-shot (pattern `be/scripts/seed-seo-*.ts`), idempotent theo `baseSlug`, status `PUBLISHED`, slug final `{baseSlug}-{id}`.
+
+Helper dùng chung: `be/scripts/lib/seo-seed.ts` (`loadEnvFile`, `assertNoEmDash`, `repairCta`, `urlsFromCategory`).
+
+## Nội dung SEO
+
+- Đúng **chủ đề user yêu cầu**; intent rõ (informational / transactional / local).
+- **Không dùng dấu gạch dài `—`** (em dash). Dùng `-`, `:`, hoặc tách câu.
+- Không nhồi keyword. Local nhẹ khi phù hợp (Đà Nẵng, Hội An, VESMART).
+- Cấu trúc: mở bài ngắn → H2/H3 checklist → FAQ 3–4 câu → CTA VESMART (Zalo `0971183153`, địa chỉ Trưng Nữ Vương Đà Nẵng).
+- **Không lặp H1** trong Markdown (title là H1 trên FE).
+- Internal link: `/products`, `/forum`, `/blog` khi hợp lý.
+- Ảnh Markdown: `![alt có từ khóa chủ đề](https://cdn.vesmart.vn/...)`.
+
+## Chọn ảnh từ ImageCategory (bắt buộc)
+
+1. Gọi `GET /api/v1/images/categories/tree` (hoặc Prisma `imageCategory`) lấy cây 2 cấp.
+2. Match **child category** theo tên/slug gần chủ đề nhất (normalize bỏ dấu, lowercase).
+   - Ví dụ chủ đề **Ecovacs Deebot X1 OMNI** → category `ecovacs-deebot-x1-omni` (parent Robot hút bụi).
+3. Lấy ảnh: `GET /images?categoryId={childId}&limit=…` hoặc Prisma `image` where `category_id` + `deleted_at: null` + URL `cdn.vesmart.vn`. Ưu tiên landscape (`width >= height`) cho thumbnail.
+4. **Fallback** nếu không có mục tương ứng hoặc không đủ ảnh: **VESMART / Chia sẽ** (`slug: chia-se`, parent `vesmart`). Không lấy nhầm `san-pham-chia-se` trừ khi bài đúng về catalog sản phẩm chung.
+5. Không trùng URL ảnh giữa các bài trong cùng batch nếu đủ ảnh.
+6. Không dùng ảnh product-card generic khi đã có category model/hãng khớp.
+
+```
+Chủ đề: Ecovacs Deebot X1 OMNI
+→ có ImageCategory child "Ecovacs Deebot X1 OMNI" → dùng ảnh category đó
+→ không có → dùng VESMART / Chia sẽ (chia-se)
+```
+
+## Kiểm tra trước khi xong
+
+- [ ] Không còn ký tự `—` trong title/summary/seo/content
+- [ ] Ảnh từ đúng ImageCategory (hoặc fallback `chia-se`)
+- [ ] Verify API: `GET /posts/{slug}` status `PUBLISHED`, content có CDN robot/đúng mục

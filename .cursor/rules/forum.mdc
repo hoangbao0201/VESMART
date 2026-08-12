@@ -1,0 +1,21 @@
+---
+description: Forum UI kiểu VOZ và seed thảo luận VESMART
+globs: fe/src/components/**/Forum*/**,fe/src/components/**/Thread*/**,be/scripts/seed-forum*.ts
+alwaysApply: false
+---
+
+# Forum VESMART
+
+## UI (FE)
+
+- Thread detail: layout kiểu VOZ — cột user trái, nội dung phải (`ForumPostBlock` + `forum-post.css`).
+- Mobile: giảm padding container (`px-2`), post full-width.
+- Reply: `ReplyBox variant="forum"`; reactions `compact`.
+- Không dùng card bo góc dày cho từng reply.
+
+## Seed thảo luận
+
+- Script: `be/scripts/seed-forum-*.ts`, idempotent theo `baseSlug`.
+- User tên Việt, nội dung ngắn, bình luận kỹ thuật, link chéo `/forum/threads/{slug}`.
+- Forum thuộc category `robot-hut-bui`; tạo forum brand nếu thiếu (`ecovacs`, `roborock`, `dreame`).
+- Bump `thread_count` / `post_count` / `last_*` khi seed.

@@ -1,0 +1,60 @@
+# --- Secrets / certificates ---
+OriginCertificate.txt
+PrivateKey.txt
+*.pem
+*.key
+client_secret*.json
+**/client_secrets.json
+
+# --- Env ---
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# --- Deploy junk & secrets (scripts contain VPS passwords) ---
+deploy/**
+!deploy/.gitignore
+!deploy/README.md
+
+# --- Unrelated / legacy ---
+tool-facebook/
+project/
+*.exe
+*.rar
+*.zip
+
+# --- Archives / logs / temp ---
+*.tar.gz
+*.tgz
+*.log
+*.out
+**/_tmp*
+**/_fix*
+**/_verify*
+**/_probe*
+**/_status*
+**/_finish*
+**/_login*
+**/_check*
+**/_be_*
+**/_fe_*
+.DS_Store
+Thumbs.db
+
+# --- Dependencies / build ---
+node_modules/
+dist/
+.next/
+coverage/
+*.tsbuildinfo
+
+# Lighthouse dumps (huge)
+fe/scripts/lh-*/
+fe/scripts/**/*.json
+
+# --- IDE ---
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
