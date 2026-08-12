@@ -4,9 +4,9 @@
 
 | Path | Purpose |
 |------|---------|
-| `.cursor/rules/` | Agent rules (SEO blog, forum, deploy, auth) |
+| `.cursor/rules/` | Agent rules (SEO blog, forum, auth, monorepo) |
 | `be/scripts/lib/` | Shared seed helpers (CTA, env, images) |
-| `docs/` | Architecture notes (optional copies) |
+| `docs/` | Architecture / design docs |
 | `deploy/` | VPS deploy scripts (**local only**, gitignored secrets) |
 
 ## Apps
