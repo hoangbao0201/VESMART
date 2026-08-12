@@ -123,7 +123,7 @@ const FORUMS = [
   },
 ];
 
-/** Placeholders {{t:baseSlug}} replaced after all threads exist. */
+/** Placeholders {{t:baseSlug}} → tiêu đề thread (không URL) sau khi seed xong. */
 const THREADS: ThreadSeed[] = [
   {
     baseSlug: 'ecovacs-x1-omni-khong-ve-tram-hoi',
@@ -600,12 +600,31 @@ async function ensureUsers(passwordHash: string) {
   return map;
 }
 
-function linkify(content: string, slugByBase: Map<string, string>) {
+/** {{t:baseSlug}} → tiêu đề thread (chữ thường, không URL). */
+function mentionTopic(content: string, titleByBase: Map<string, string>) {
   return content.replace(/\{\{t:([a-z0-9-]+)\}\}/g, (_m, base: string) => {
-    const slug = slugByBase.get(base);
-    if (!slug) return `/forum`;
-    return `/forum/threads/${slug}`;
+    const title = titleByBase.get(base);
+    return title ? `"${title}"` : 'thread liên quan';
   });
+}
+
+/** Gỡ footer cũ (URL /forum/threads/... hoặc blurb seed trước đó). */
+function stripCrossLinkFooter(content: string) {
+  const marker = '\n\n---\n\n';
+  const idx = content.lastIndexOf(marker);
+  if (idx === -1) {
+    return content.replace(/\/forum\/threads\/[a-z0-9-]+/gi, '').replace(/[ \t]{2,}/g, ' ').trim();
+  }
+  const footer = content.slice(idx + marker.length);
+  if (
+    /\/forum\/threads\//i.test(footer) ||
+    /xem thêm:|Case lỗi thực tế|Một số case anh em|Đừng nhầm với lỗi|Nếu loạn sau update/i.test(
+      footer,
+    )
+  ) {
+    return content.slice(0, idx).trimEnd();
+  }
+  return content;
 }
 
 async function main() {
@@ -674,13 +693,19 @@ async function main() {
     createdUrls.push(`https://vesmart.vn/forum/threads/${thread.slug}`);
   }
 
-  // Pass 2: cross-link blurbs + replies
-  const crossLinks: Record<string, string> = {
-    'ecovacs-x1-omni-khong-ve-tram-hoi': `Ai đang phân vân máy cũ cũng xem thêm: {{t:nen-mua-qrevo-s-hay-x1-omni-cu}}`,
-    'roborock-qrevo-s-chay-loan-hoi': `Nếu loạn sau update firmware, xem thêm: {{t:map-lech-sau-cap-nhat-firmware}}`,
-    'nen-mua-qrevo-s-hay-x1-omni-cu': `Case lỗi thực tế để cân nhắc máy cũ: {{t:ecovacs-x1-omni-khong-ve-tram-hoi}} và {{t:qrevo-s-khong-ra-nuoc-lau}}`,
-    'qrevo-s-khong-ra-nuoc-lau': `Đừng nhầm với lỗi hút nước trạm. Cần chỗ test thì xem: {{t:goi-y-sua-robot-da-nang-vesmart}}`,
-    'goi-y-sua-robot-da-nang-vesmart': `Một số case anh em đang hỏi: {{t:ecovacs-x1-omni-khong-ve-tram-hoi}}, {{t:qrevo-s-khong-ra-nuoc-lau}}, {{t:dreame-pin-tut-nhanh}}`,
+  // Pass 2: nhắc chủ đề bằng tiêu đề (không URL) + replies
+  const titleByBase = new Map(THREADS.map((t) => [t.baseSlug, t.title]));
+  const crossMentions: Record<string, string> = {
+    'ecovacs-x1-omni-khong-ve-tram-hoi':
+      `Ai đang phân vân máy cũ cũng bàn thêm ở thread {{t:nen-mua-qrevo-s-hay-x1-omni-cu}}.`,
+    'roborock-qrevo-s-chay-loan-hoi':
+      `Nếu loạn sau update firmware, anh em hay kể case {{t:map-lech-sau-cap-nhat-firmware}}.`,
+    'nen-mua-qrevo-s-hay-x1-omni-cu':
+      `Case lỗi thực tế để cân nhắc máy cũ: {{t:ecovacs-x1-omni-khong-ve-tram-hoi}} và {{t:qrevo-s-khong-ra-nuoc-lau}}.`,
+    'qrevo-s-khong-ra-nuoc-lau':
+      `Đừng nhầm với lỗi hút nước trạm. Cần chỗ test thì hỏi anh em ở {{t:goi-y-sua-robot-da-nang-vesmart}}.`,
+    'goi-y-sua-robot-da-nang-vesmart':
+      `Một số case anh em đang hỏi: {{t:ecovacs-x1-omni-khong-ve-tram-hoi}}, {{t:qrevo-s-khong-ra-nuoc-lau}}, {{t:dreame-pin-tut-nhanh}}.`,
   };
 
   for (let i = 0; i < THREADS.length; i++) {
@@ -695,6 +720,18 @@ async function main() {
     });
     if (!thread) continue;
 
+    // Luôn refresh nội dung OP: bỏ path /forum/threads/... cũ, gắn nhắc tiêu đề nếu có
+    let content = stripCrossLinkFooter(draft.content);
+    const extra = crossMentions[draft.baseSlug];
+    if (extra) {
+      content = `${content}\n\n${mentionTopic(extra, titleByBase)}`;
+    }
+    await prisma.thread.update({
+      where: { id: thread.id },
+      data: { content },
+    });
+    console.log(`CONTENT refreshed thread #${thread.id}`);
+
     const existingPosts = await prisma.forumPost.count({
       where: { thread_id: thread.id, deleted_at: null },
     });
@@ -702,17 +739,6 @@ async function main() {
       console.log(`SKIP replies thread #${thread.id}`);
       continue;
     }
-
-    let content = draft.content;
-    const extra = crossLinks[draft.baseSlug];
-    if (extra) {
-      content = `${content}\n\n---\n\n${linkify(extra, slugByBase)}`;
-    }
-
-    await prisma.thread.update({
-      where: { id: thread.id },
-      data: { content },
-    });
 
     let lastPostId: number | null = null;
     let lastReplyUserId: number | null = null;
@@ -725,7 +751,7 @@ async function main() {
       const at = new Date(threadStart.getTime() + reply.afterMin * 60 * 1000);
       const post = await prisma.forumPost.create({
         data: {
-          content: linkify(reply.content, slugByBase),
+          content: mentionTopic(reply.content, titleByBase),
           created_at: at,
           updated_at: at,
           thread: { connect: { id: thread.id } },

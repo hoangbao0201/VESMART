@@ -16,6 +16,7 @@ alwaysApply: false
 ## Seed thảo luận
 
 - Script: `be/scripts/seed-forum-*.ts`, idempotent theo `baseSlug`.
-- User tên Việt, nội dung ngắn, bình luận kỹ thuật, link chéo `/forum/threads/{slug}`.
+- User tên Việt, nội dung ngắn, bình luận kỹ thuật hỏi đáp / chia sẻ.
+- Không nhét URL `/forum/threads/...` vào nội dung. Muốn nhắc thread khác thì ghi **tiêu đề** bằng chữ (vd. `"Qrevo S lau khô..."`).
 - Forum thuộc category `robot-hut-bui`; tạo forum brand nếu thiếu (`ecovacs`, `roborock`, `dreame`).
 - Bump `thread_count` / `post_count` / `last_*` khi seed.
