@@ -22,6 +22,7 @@ import {
   toPlainText,
 } from "@/lib/seo";
 import { formatDate } from "@/lib/utils/format";
+import { toCdnDisplayUrl } from "@/lib/media/cdn-image";
 import EditPostLink from "./components/EditPostLink";
 import RelatedPostsSection from "./components/RelatedPostsSection";
 
@@ -120,7 +121,7 @@ const BlogDetailTemplate = async ({ slug }: BlogDetailTemplateProps) => {
             {post.thumbnail ? (
               <div className="relative aspect-[1000/420] w-full bg-secondary sm:aspect-[2.4/1]">
                 <Image
-                  src={post.thumbnail}
+                  src={toCdnDisplayUrl(post.thumbnail)}
                   alt={post.title}
                   fill
                   priority

@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { PostListItem } from "@/types/post";
 import { formatDate } from "@/lib/utils/format";
 import { cn } from "@/lib/utils/cn";
+import { toCdnDisplayUrl } from "@/lib/media/cdn-image";
 
 type BlogCardProps = {
   post: PostListItem;
@@ -11,6 +12,7 @@ type BlogCardProps = {
 
 const BlogCard = ({ post, className }: BlogCardProps) => {
   const published = formatDate(post.publishedAt);
+  const thumb = post.thumbnail ? toCdnDisplayUrl(post.thumbnail) : null;
 
   return (
     <Link
@@ -21,9 +23,9 @@ const BlogCard = ({ post, className }: BlogCardProps) => {
       )}
     >
       <div className="relative aspect-square overflow-hidden bg-secondary">
-        {post.thumbnail ? (
+        {thumb ? (
           <Image
-            src={post.thumbnail}
+            src={thumb}
             alt={post.title}
             fill
             className="object-cover"

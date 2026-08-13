@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ProductListItem } from "@/types/product";
 import { formatPrice } from "@/lib/utils/format";
 import { cn } from "@/lib/utils/cn";
+import { toCdnDisplayUrl } from "@/lib/media/cdn-image";
 
 type ProductCardProps = {
   product: ProductListItem;
@@ -13,6 +14,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
   const salePrice = formatPrice(product.salePriceFrom);
   const price = formatPrice(product.priceFrom);
   const displayPrice = salePrice ?? price;
+  const thumb = product.thumbnail ? toCdnDisplayUrl(product.thumbnail) : null;
 
   return (
     <Link
@@ -23,9 +25,9 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
       )}
     >
       <div className="relative aspect-square overflow-hidden bg-secondary">
-        {product.thumbnail ? (
+        {thumb ? (
           <Image
-            src={product.thumbnail}
+            src={thumb}
             alt={product.name}
             fill
             className="object-cover"

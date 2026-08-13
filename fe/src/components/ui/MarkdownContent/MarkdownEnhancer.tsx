@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { toCdnFullUrl } from "@/lib/media/cdn-image";
 
 type MarkdownEnhancerProps = {
   rootId: string;
@@ -9,7 +10,7 @@ type MarkdownEnhancerProps = {
 
 /**
  * Progressive enhancements for rendered markdown:
- * copy buttons, image lightbox. Mounted once per article.
+ * copy buttons, image lightbox (full CDN WebP, not resize:500).
  */
 const MarkdownEnhancer = ({ rootId }: MarkdownEnhancerProps) => {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
@@ -43,7 +44,9 @@ const MarkdownEnhancer = ({ rootId }: MarkdownEnhancerProps) => {
       const img = target.closest<HTMLImageElement>("img.md-image, .md-figure img");
       if (img?.src) {
         event.preventDefault();
-        setLightboxSrc(img.src);
+        const full =
+          img.getAttribute("data-full-src") || toCdnFullUrl(img.currentSrc || img.src);
+        setLightboxSrc(full);
         setLightboxAlt(img.alt || "");
       }
     };

@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { toCamel } from '../../common/utils/case';
-import { getImageDimensions } from '../../common/utils/image-dimensions';
 import { buildMeta, parseSort } from '../../common/utils/pagination';
 import { handlePrismaError } from '../../common/utils/prisma-error';
 import { makeSlug } from '../../common/utils/slug';
@@ -273,16 +272,15 @@ export class ImagesService {
       file,
       `media/${category.slug}`,
     );
-    const { width, height } = getImageDimensions(file.buffer);
     try {
       const image = await this.imagesRepository.createImage({
         url: uploaded.url,
         r2_key: uploaded.key,
         description: dto.description,
-        mime: file.mimetype,
-        bytes: file.size,
-        width,
-        height,
+        mime: uploaded.mime,
+        bytes: uploaded.bytes,
+        width: uploaded.width,
+        height: uploaded.height,
         category: { connect: { id: category.id } },
       });
       return toCamel(image);

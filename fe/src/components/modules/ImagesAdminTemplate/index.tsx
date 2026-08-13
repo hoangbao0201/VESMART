@@ -26,6 +26,7 @@ import {
   uploadMediaImage,
 } from "@/lib/api/media";
 import { cn } from "@/lib/utils/cn";
+import { toCdnDisplayUrl } from "@/lib/media/cdn-image";
 import type { MediaImage, MediaImageCategory } from "@/types/media";
 import type { PaginationMeta } from "@/types/api";
 
@@ -670,7 +671,7 @@ const ImagesAdminContent = () => {
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={image.url}
+                        src={toCdnDisplayUrl(image.url)}
                         alt={image.description || `Ảnh #${image.id}`}
                         width={image.width ?? undefined}
                         height={image.height ?? undefined}

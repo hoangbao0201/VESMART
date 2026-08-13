@@ -23,6 +23,7 @@
     "prisma:seed": "prisma db seed",
     "prisma:migrate-mongo": "ts-node --project scripts/tsconfig.json scripts/migrate-from-mongo.ts",
     "prisma:migrate-images": "ts-node --project scripts/tsconfig.json scripts/migrate-images-to-r2.ts",
+    "prisma:migrate-cdn-webp": "ts-node --project scripts/tsconfig.json scripts/migrate-cdn-to-webp.ts",
     "prisma:backfill-image-dims": "ts-node --project scripts/tsconfig.json scripts/backfill-image-dimensions.ts",
     "prisma:seed-seo-repair-posts": "ts-node --project scripts/tsconfig.json scripts/seed-seo-repair-posts.ts",
     "prisma:seed-seo-repair-hoi-an": "ts-node --project scripts/tsconfig.json scripts/seed-seo-repair-posts-hoi-an.ts",
@@ -33,6 +34,7 @@
     "prisma:seed-seo-ecovacs-vesmart": "ts-node --project scripts/tsconfig.json scripts/seed-seo-ecovacs-vesmart-post.ts",
     "prisma:seed-seo-qrevo-s": "ts-node --project scripts/tsconfig.json scripts/seed-seo-qrevo-s-posts.ts",
     "prisma:seed-seo-tineco": "ts-node --project scripts/tsconfig.json scripts/seed-seo-tineco-posts.ts",
+    "prisma:seed-seo-air-purifier": "ts-node --project scripts/tsconfig.json scripts/seed-seo-air-purifier-posts.ts",
     "prisma:seed-forum-repair": "ts-node --project scripts/tsconfig.json scripts/seed-forum-repair-threads.ts"
   },
   "prisma": {
@@ -61,6 +63,7 @@
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "sharp": "^0.35.3",
     "slugify": "^1.6.9"
   },
   "devDependencies": {

@@ -9,6 +9,7 @@ import EmptyState from "@/components/ui/EmptyState";
 import { cn } from "@/lib/utils/cn";
 import type { MediaImage, MediaImageCategory } from "@/types/media";
 import type { PaginationMeta } from "@/types/api";
+import { toCdnDisplayUrl, toCdnFullUrl } from "@/lib/media/cdn-image";
 
 type ImagesGalleryProps = {
   images: MediaImage[];
@@ -109,7 +110,7 @@ const ImagesGallery = ({
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element -- variable aspect masonry */}
                   <img
-                    src={image.url}
+                    src={toCdnDisplayUrl(image.url)}
                     alt={image.description || "Ảnh VESMART"}
                     loading="lazy"
                     width={image.width ?? undefined}
@@ -152,7 +153,7 @@ const ImagesGallery = ({
           {selected ? (
             <div className="relative mx-auto max-h-[75vh] w-full overflow-hidden rounded-[12px] bg-secondary">
               <Image
-                src={selected.url}
+                src={toCdnFullUrl(selected.url)}
                 alt={selected.description || "Ảnh VESMART"}
                 width={selected.width || 1200}
                 height={selected.height || 1200}

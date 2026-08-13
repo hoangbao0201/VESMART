@@ -11,6 +11,7 @@ import python from "highlight.js/lib/languages/python";
 import sql from "highlight.js/lib/languages/sql";
 import markdown from "highlight.js/lib/languages/markdown";
 import plaintext from "highlight.js/lib/languages/plaintext";
+import { toCdnDisplayUrl, toCdnFullUrl } from "@/lib/media/cdn-image";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("js", javascript);
@@ -175,14 +176,18 @@ function createMarkdownParser() {
     return defaultLinkOpen(tokens, idx, options, env, self);
   };
 
-  // Images: lazy + class
+  // Images: lazy + class; CDN list uses resize:500, data-full-src for lightbox
   md.renderer.rules.image = (tokens, idx) => {
     const token = tokens[idx];
     const alt = String(token.content || token.attrGet("alt") || "");
     const src = String(token.attrGet("src") || "");
     const title = token.attrGet("title");
     const caption = title ? `<figcaption>${escapeHtml(String(title))}</figcaption>` : "";
-    return `<figure class="md-figure"><img src="${escapeHtml(src)}" alt="${escapeHtml(
+    const display = toCdnDisplayUrl(src);
+    const full = toCdnFullUrl(src);
+    return `<figure class="md-figure"><img src="${escapeHtml(display)}" data-full-src="${escapeHtml(
+      full,
+    )}" alt="${escapeHtml(
       alt,
     )}" loading="lazy" decoding="async" class="md-image" />${caption}</figure>`;
   };

@@ -6,6 +6,7 @@ import {
   type MarkdownHeading,
 } from "@/lib/markdown";
 import { renderMarkdownLite } from "@/lib/markdown-lite";
+import { rewriteHtmlCdnImagesToDisplay } from "@/lib/media/cdn-image";
 import { cn } from "@/lib/utils/cn";
 import MarkdownToc from "./MarkdownToc";
 import MarkdownEnhancer from "./MarkdownEnhancer";
@@ -34,11 +35,12 @@ const MarkdownContent = ({
   mode = "full",
 }: MarkdownContentProps) => {
   const isHtml = looksLikeHtml(content);
-  const html = isHtml
+  const rawHtml = isHtml
     ? content
     : mode === "lite"
       ? renderMarkdownLite(content)
       : renderMarkdown(content);
+  const html = isHtml ? rewriteHtmlCdnImagesToDisplay(rawHtml) : rawHtml;
   const headings: MarkdownHeading[] =
     !isHtml && showToc && mode === "full" ? extractMarkdownHeadings(content) : [];
   const hasToc = headings.length >= 2;

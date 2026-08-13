@@ -1,12 +1,20 @@
 import {
   BadRequestException,
   Injectable,
-  NotFoundException,
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  DeleteObjectCommand,
+  HeadObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { randomUUID } from 'crypto';
+import {
+  buildTripleWebp,
+  keysFromStem,
+} from '../../common/utils/image-webp';
 
 const ALLOWED_MIME = new Set([
   'image/jpeg',
@@ -22,6 +30,22 @@ export type PutBufferInput = {
   ext?: string;
   /** Key prefix without trailing slash, e.g. media/san-pham-chia-se */
   keyPrefix?: string;
+};
+
+export type TripleUploadResult = {
+  /** Canonical full WebP URL stored in DB */
+  url: string;
+  fullUrl: string;
+  resize1000Url: string;
+  resize500Url: string;
+  key: string;
+  fullKey: string;
+  resize1000Key: string;
+  resize500Key: string;
+  mime: string;
+  bytes: number;
+  width: number;
+  height: number;
 };
 
 @Injectable()
@@ -52,7 +76,22 @@ export class UploadsService {
     return Boolean(this.s3 && this.bucket && this.publicUrl);
   }
 
-  async upload(file: Express.Multer.File, keyPrefix = 'uploads') {
+  private requireStorage() {
+    if (!this.s3 || !this.bucket || !this.publicUrl) {
+      throw new ServiceUnavailableException({
+        message:
+          'Upload storage is not configured. Set R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET, R2_PUBLIC_URL',
+        error: { code: 'R2_NOT_CONFIGURED', details: null },
+      });
+    }
+    return {
+      s3: this.s3,
+      bucket: this.bucket,
+      publicUrl: this.publicUrl.replace(/\/$/, ''),
+    };
+  }
+
+  private validateImageFile(file: Express.Multer.File) {
     if (!file) {
       throw new BadRequestException({
         message: 'File is required',
@@ -71,45 +110,104 @@ export class UploadsService {
         error: { code: 'FILE_TOO_LARGE', details: { maxBytes: MAX_SIZE } },
       });
     }
+  }
 
-    const ext = file.originalname.split('.').pop() || 'bin';
-    return this.putBuffer({
-      buffer: file.buffer,
-      contentType: file.mimetype,
-      ext,
-      keyPrefix,
-    });
+  /** Upload image as triple WebP (full + resize:1000 + resize:500). Returns full URL. */
+  async upload(file: Express.Multer.File, keyPrefix = 'uploads') {
+    this.validateImageFile(file);
+    return this.uploadTripleWebp(file.buffer, keyPrefix);
+  }
+
+  async uploadTripleWebp(
+    buffer: Buffer,
+    keyPrefix = 'uploads',
+    stemSuffix?: string,
+  ): Promise<TripleUploadResult> {
+    const { publicUrl } = this.requireStorage();
+    const prefix = (keyPrefix || 'uploads').replace(/^\/+|\/+$/g, '');
+    const stem =
+      stemSuffix ||
+      `${prefix}/${new Date().toISOString().slice(0, 10)}/${randomUUID()}`;
+    const keys = keysFromStem(stem);
+    const variants = await buildTripleWebp(buffer);
+
+    await Promise.all([
+      this.putBufferAtKey(keys.fullKey, variants.full.buffer, 'image/webp'),
+      this.putBufferAtKey(
+        keys.resize1000Key,
+        variants.resize1000.buffer,
+        'image/webp',
+      ),
+      this.putBufferAtKey(
+        keys.resize500Key,
+        variants.resize500.buffer,
+        'image/webp',
+      ),
+    ]);
+
+    const fullUrl = `${publicUrl}/${keys.fullKey}`;
+    return {
+      url: fullUrl,
+      fullUrl,
+      resize1000Url: `${publicUrl}/${keys.resize1000Key}`,
+      resize500Url: `${publicUrl}/${keys.resize500Key}`,
+      key: keys.fullKey,
+      fullKey: keys.fullKey,
+      resize1000Key: keys.resize1000Key,
+      resize500Key: keys.resize500Key,
+      mime: 'image/webp',
+      bytes: variants.full.bytes,
+      width: variants.full.width,
+      height: variants.full.height,
+    };
   }
 
   async putBuffer(input: PutBufferInput): Promise<{ url: string; key: string }> {
     const prefix = (input.keyPrefix || 'uploads').replace(/^\/+|\/+$/g, '');
     const ext = (input.ext || 'bin').replace(/^\./, '');
     const key = `${prefix}/${new Date().toISOString().slice(0, 10)}/${randomUUID()}.${ext}`;
+    return this.putBufferAtKey(key, input.buffer, input.contentType);
+  }
 
-    if (!this.s3 || !this.bucket || !this.publicUrl) {
-      throw new ServiceUnavailableException({
-        message:
-          'Upload storage is not configured. Set R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET, R2_PUBLIC_URL',
-        error: {
-          code: 'R2_NOT_CONFIGURED',
-          details: {
-            stubKey: key,
-            suggestedUrl: `https://cdn.example.com/${key}`,
-          },
-        },
-      });
-    }
-
-    await this.s3.send(
+  async putBufferAtKey(
+    key: string,
+    buffer: Buffer,
+    contentType: string,
+  ): Promise<{ url: string; key: string }> {
+    const { s3, bucket, publicUrl } = this.requireStorage();
+    await s3.send(
       new PutObjectCommand({
-        Bucket: this.bucket,
+        Bucket: bucket,
         Key: key,
-        Body: input.buffer,
-        ContentType: input.contentType,
+        Body: buffer,
+        ContentType: contentType,
       }),
     );
+    return { url: `${publicUrl}/${key}`, key };
+  }
 
-    const base = this.publicUrl.replace(/\/$/, '');
-    return { url: `${base}/${key}`, key };
+  async deleteObject(key: string): Promise<void> {
+    const { s3, bucket } = this.requireStorage();
+    await s3.send(
+      new DeleteObjectCommand({
+        Bucket: bucket,
+        Key: key,
+      }),
+    );
+  }
+
+  async objectExists(key: string): Promise<boolean> {
+    const { s3, bucket } = this.requireStorage();
+    try {
+      await s3.send(
+        new HeadObjectCommand({
+          Bucket: bucket,
+          Key: key,
+        }),
+      );
+      return true;
+    } catch {
+      return false;
+    }
   }
 }

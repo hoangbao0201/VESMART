@@ -5,6 +5,11 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { ProductImage } from "@/types/product";
 import { cn } from "@/lib/utils/cn";
+import { toCdnDisplayUrl, toCdnFullUrl } from "@/lib/media/cdn-image";
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/Dialog";
 
 type ProductGalleryProps = {
   name: string;
@@ -25,6 +30,7 @@ const ProductGallery = ({ name, thumbnail, images }: ProductGalleryProps) => {
   }, [images, thumbnail, name]);
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   if (gallery.length === 0) {
     return (
@@ -35,6 +41,8 @@ const ProductGallery = ({ name, thumbnail, images }: ProductGalleryProps) => {
   }
 
   const active = gallery[Math.min(activeIndex, gallery.length - 1)];
+  const displaySrc = toCdnDisplayUrl(active.imageUrl);
+  const fullSrc = toCdnFullUrl(active.imageUrl);
   const go = (next: number) => {
     const len = gallery.length;
     setActiveIndex(((next % len) + len) % len);
@@ -43,8 +51,14 @@ const ProductGallery = ({ name, thumbnail, images }: ProductGalleryProps) => {
   return (
     <div className="w-full">
       <div className="relative aspect-square w-full overflow-hidden border border-border bg-secondary">
+        <button
+          type="button"
+          className="absolute inset-0 z-[1] cursor-zoom-in"
+          aria-label="Xem ảnh chất lượng cao"
+          onClick={() => setLightboxOpen(true)}
+        />
         <Image
-          src={active.imageUrl}
+          src={displaySrc}
           alt={active.altText || `${name} - ảnh ${activeIndex + 1}`}
           fill
           priority={activeIndex === 0}
@@ -93,7 +107,7 @@ const ProductGallery = ({ name, thumbnail, images }: ProductGalleryProps) => {
               aria-label={`Xem ảnh ${index + 1}`}
             >
               <Image
-                src={image.imageUrl}
+                src={toCdnDisplayUrl(image.imageUrl)}
                 alt=""
                 fill
                 className="object-cover"
@@ -103,6 +117,24 @@ const ProductGallery = ({ name, thumbnail, images }: ProductGalleryProps) => {
           ))}
         </div>
       ) : null}
+
+      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
+        <DialogContent
+          title={active.altText || name}
+          className="w-[min(960px,calc(100%-1.5rem))] p-3 sm:p-4"
+        >
+          <div className="relative mx-auto max-h-[75vh] w-full overflow-hidden rounded-[12px] bg-secondary">
+            <Image
+              src={fullSrc}
+              alt={active.altText || name}
+              width={1500}
+              height={1500}
+              className="mx-auto h-auto max-h-[75vh] w-auto object-contain"
+              unoptimized
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
