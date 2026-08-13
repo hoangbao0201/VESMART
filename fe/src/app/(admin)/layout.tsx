@@ -25,6 +25,15 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
               <Link href="/admin/images" className="hover:text-foreground">
                 Kho ảnh
               </Link>
+              <Link href="/admin/forums" className="hover:text-foreground">
+                Forum
+              </Link>
+              <Link href="/admin/forums/auto" className="hover:text-foreground">
+                Forum Auto
+              </Link>
+              <Link href="/admin/forums/threads" className="hover:text-foreground">
+                Threads
+              </Link>
               <Link href="/admin/comments" className="hover:text-foreground">
                 Bình luận
               </Link>

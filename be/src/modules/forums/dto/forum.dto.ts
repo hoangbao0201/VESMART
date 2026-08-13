@@ -1,8 +1,10 @@
 import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
+import { ThreadStatus } from '@prisma/client';
 import { Transform, Type } from 'class-transformer';
 import {
   IsArray,
   IsBoolean,
+  IsEnum,
   IsInt,
   IsOptional,
   IsString,
@@ -156,6 +158,11 @@ export class UpdateThreadDto {
   @IsOptional()
   @IsBoolean()
   isLocked?: boolean;
+
+  @ApiPropertyOptional({ enum: ThreadStatus })
+  @IsOptional()
+  @IsEnum(ThreadStatus)
+  status?: ThreadStatus;
 }
 
 export class QueryThreadDto extends PaginationQueryDto {
@@ -169,6 +176,19 @@ export class QueryThreadDto extends PaginationQueryDto {
   @Type(() => Number)
   @IsInt()
   forumId?: number;
+
+  @ApiPropertyOptional({ enum: ThreadStatus })
+  @IsOptional()
+  @IsEnum(ThreadStatus)
+  status?: ThreadStatus;
+}
+
+export class QueryForumPostDto extends PaginationQueryDto {
+  @ApiPropertyOptional()
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  threadId?: number;
 }
 
 export class CreateForumPostDto {
@@ -188,3 +208,21 @@ export class UpdateForumPostDto {
   @IsString()
   content!: string;
 }
+
+export class CreateForumAutoDto {
+  @ApiProperty()
+  @Type(() => Number)
+  @IsInt()
+  forumId!: number;
+
+  @ApiProperty({ description: 'Nội dung OP thread (admin nhập)' })
+  @IsString()
+  @MaxLength(20000)
+  content!: string;
+
+  @ApiProperty({ description: 'URL bài Facebook group/permalink' })
+  @IsString()
+  @MaxLength(2000)
+  facebookUrl!: string;
+}
+

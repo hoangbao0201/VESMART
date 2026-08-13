@@ -20,3 +20,12 @@ alwaysApply: false
 - Không nhét URL `/forum/threads/...` vào nội dung. Muốn nhắc thread khác thì ghi **tiêu đề** bằng chữ (vd. `"Qrevo S lau khô..."`).
 - Forum thuộc category `robot-hut-bui`; tạo forum brand nếu thiếu (`ecovacs`, `roborock`, `dreame`).
 - Bump `thread_count` / `post_count` / `last_*` khi seed.
+
+## Admin forum
+
+- Hub: `/admin/forums` (cards + subnav).
+- Pages: `/admin/forums/auto`, `/categories`, `/boards`, `/threads`, `/posts`.
+- **Forum Auto**: chọn forum + nội dung thread + URL Facebook → scrape comments → tạo thread/replies. Cần `FB_COOKIE` trong `be/.env`.
+- Category + Forum boards: CRUD (ADMIN).
+- Thread + Post: tạo/sửa/xóa, ghim/khóa/ẩn (ADMIN / MODERATOR).
+- API: `GET /admin/threads`, `GET /admin/forum-posts`, `POST /admin/forum-auto`.

@@ -29,7 +29,9 @@ const SECTIONS = [
     links: [
       { href: "/admin/posts", label: "Bài viết blog", icon: Newspaper },
       { href: "/admin/images", label: "Kho ảnh", icon: Images },
-      { href: "/admin/forums", label: "Forum categories", icon: MessageSquareWarning },
+      { href: "/admin/forums", label: "Forum (hub)", icon: MessageSquareWarning },
+      { href: "/admin/forums/auto", label: "Forum Auto", icon: MessageSquareWarning },
+      { href: "/admin/forums/threads", label: "Threads", icon: MessageSquareWarning },
     ],
   },
   {
@@ -37,6 +39,7 @@ const SECTIONS = [
     description: "Duyệt comment và quản lý user.",
     links: [
       { href: "/admin/comments", label: "Bình luận chờ duyệt", icon: MessageSquareWarning },
+      { href: "/admin/forums/posts", label: "Forum posts", icon: MessageSquareWarning },
       { href: "/admin/users", label: "Người dùng", icon: Users },
     ],
   },

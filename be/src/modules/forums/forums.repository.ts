@@ -232,4 +232,34 @@ export class ForumsRepository {
     ]);
     return { items, total };
   }
+
+  async findPostsAdmin(params: {
+    threadId?: number;
+    search?: string;
+    skip: number;
+    take: number;
+    orderBy?: Prisma.ForumPostOrderByWithRelationInput;
+  }) {
+    const where: Prisma.ForumPostWhereInput = {
+      deleted_at: null,
+      ...(params.threadId ? { thread_id: params.threadId } : {}),
+      ...(params.search
+        ? { content: { contains: params.search, mode: 'insensitive' } }
+        : {}),
+    };
+    const [items, total] = await this.prisma.$transaction([
+      this.prisma.forumPost.findMany({
+        skip: params.skip,
+        take: params.take,
+        where,
+        orderBy: params.orderBy ?? { created_at: 'desc' },
+        include: {
+          user: { select: { id: true, username: true, avatar: true } },
+          thread: { select: { id: true, slug: true, title: true } },
+        },
+      }),
+      this.prisma.forumPost.count({ where }),
+    ]);
+    return { items, total };
+  }
 }

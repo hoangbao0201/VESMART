@@ -1,0 +1,17 @@
+{
+  "name": "auto-post-forum",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Scrape Facebook group post + comments into forum seed JSON",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
+}

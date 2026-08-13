@@ -12,14 +12,18 @@ export type UserSummary = {
   avatar: string | null;
 };
 
+export type ThreadStatus = "OPEN" | "CLOSED" | "HIDDEN" | "DELETED";
+
 export type ThreadListItem = {
   id: number;
   slug: string;
   title: string;
+  content?: string;
   views: number;
   replyCount: number;
   isPinned: boolean;
   isLocked: boolean;
+  status?: ThreadStatus;
   lastReplyAt: string | null;
   createdAt: string;
   forum?: ForumSummary | null;
@@ -36,6 +40,7 @@ export type ForumListItem = {
   threadCount: number;
   postCount: number;
   sortOrder: number;
+  categoryId?: number;
   lastThread?: {
     id: number;
     slug: string;
@@ -69,11 +74,16 @@ export type ForumPostItem = {
   editedAt: string | null;
   replyToPostId: number | null;
   user?: UserSummary | null;
+  thread?: {
+    id: number;
+    slug: string;
+    title: string;
+  } | null;
 };
 
 export type ThreadDetail = ThreadListItem & {
   content: string;
-  status: "OPEN" | "CLOSED" | "HIDDEN" | "DELETED";
+  status: ThreadStatus;
   seoTitle: string | null;
   seoDescription: string | null;
   tags?: TagSummary[];

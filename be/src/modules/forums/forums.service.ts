@@ -242,7 +242,9 @@ export class ForumsService {
     const page = query.page ?? 1;
     const limit = query.limit ?? 20;
     const where: Prisma.ThreadWhereInput = {
-      status: { not: ThreadStatus.HIDDEN },
+      status: query.status
+        ? query.status
+        : { notIn: [ThreadStatus.HIDDEN, ThreadStatus.DELETED] },
       ...(query.forumId ? { forum_id: query.forumId } : {}),
       ...(query.forumSlug
         ? { forum: { slug: query.forumSlug, deleted_at: null } }
@@ -275,6 +277,72 @@ export class ForumsService {
       skip: (page - 1) * limit,
       take: limit,
       where,
+      orderBy,
+    });
+    return toCamel({ items, meta: buildMeta(page, limit, total) });
+  }
+
+  /** Admin/mod: includes HIDDEN; DELETED still excluded via deleted_at. */
+  async findThreadsAdmin(query: QueryThreadDto) {
+    const page = query.page ?? 1;
+    const limit = query.limit ?? 20;
+    const where: Prisma.ThreadWhereInput = {
+      status: query.status
+        ? query.status
+        : { not: ThreadStatus.DELETED },
+      ...(query.forumId ? { forum_id: query.forumId } : {}),
+      ...(query.forumSlug
+        ? { forum: { slug: query.forumSlug, deleted_at: null } }
+        : {}),
+      ...(query.search
+        ? {
+            OR: [
+              { title: { contains: query.search, mode: 'insensitive' } },
+              { content: { contains: query.search, mode: 'insensitive' } },
+            ],
+          }
+        : {}),
+    };
+    let orderBy:
+      | Prisma.ThreadOrderByWithRelationInput
+      | Prisma.ThreadOrderByWithRelationInput[] = [
+      { is_pinned: 'desc' },
+      { last_reply_at: 'desc' },
+    ];
+    if (query.sort) {
+      orderBy = parseSort(
+        query.sort,
+        ['last_reply_at', 'created_at', 'views', 'reply_count', 'is_pinned'],
+        { field: 'last_reply_at', direction: 'desc' },
+      );
+    }
+    const { items, total } = await this.forumsRepository.findThreads({
+      skip: (page - 1) * limit,
+      take: limit,
+      where,
+      orderBy,
+    });
+    return toCamel({ items, meta: buildMeta(page, limit, total) });
+  }
+
+  async findPostsAdmin(query: {
+    page?: number;
+    limit?: number;
+    sort?: string;
+    search?: string;
+    threadId?: number;
+  }) {
+    const page = query.page ?? 1;
+    const limit = query.limit ?? 50;
+    const orderBy = parseSort(query.sort, ['created_at'], {
+      field: 'created_at',
+      direction: 'desc',
+    });
+    const { items, total } = await this.forumsRepository.findPostsAdmin({
+      threadId: query.threadId,
+      search: query.search,
+      skip: (page - 1) * limit,
+      take: limit,
       orderBy,
     });
     return toCamel({ items, meta: buildMeta(page, limit, total) });
@@ -327,9 +395,14 @@ export class ForumsService {
         error: { code: 'FORBIDDEN', details: null },
       });
     }
-    if ((dto.isPinned !== undefined || dto.isLocked !== undefined) && !isMod) {
+    if (
+      (dto.isPinned !== undefined ||
+        dto.isLocked !== undefined ||
+        dto.status !== undefined) &&
+      !isMod
+    ) {
       throw new ForbiddenException({
-        message: 'Only moderators can pin/lock threads',
+        message: 'Only moderators can pin/lock/hide threads',
         error: { code: 'FORBIDDEN', details: null },
       });
     }
@@ -342,14 +415,25 @@ export class ForumsService {
               stripIdSuffix(thread.slug, id) || makeSlug(thread.title),
               id,
             );
+    let nextStatus = dto.status;
+    if (nextStatus === undefined) {
+      if (dto.isLocked === true) nextStatus = ThreadStatus.CLOSED;
+      if (dto.isLocked === false) nextStatus = ThreadStatus.OPEN;
+    }
     const updated = await this.forumsRepository.updateThread(id, {
       title: dto.title,
       content: dto.content,
       slug: nextSlug,
       is_pinned: dto.isPinned,
-      is_locked: dto.isLocked,
-      ...(dto.isLocked === true ? { status: ThreadStatus.CLOSED } : {}),
-      ...(dto.isLocked === false ? { status: ThreadStatus.OPEN } : {}),
+      is_locked:
+        dto.isLocked !== undefined
+          ? dto.isLocked
+          : nextStatus === ThreadStatus.CLOSED
+            ? true
+            : nextStatus === ThreadStatus.OPEN
+              ? false
+              : undefined,
+      ...(nextStatus !== undefined ? { status: nextStatus } : {}),
     });
     return toCamel(updated);
   }

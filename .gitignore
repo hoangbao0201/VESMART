@@ -58,3 +58,6 @@ fe/scripts/**/*.json
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+
+auto-post-forum/result/
+

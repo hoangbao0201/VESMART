@@ -19,24 +19,30 @@ import { Roles } from '../../common/decorators/roles.decorator';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import {
+  CreateForumAutoDto,
   CreateForumCategoryDto,
   CreateForumDto,
   CreateForumPostDto,
   CreateThreadDto,
   QueryForumCategoryDto,
+  QueryForumPostDto,
   QueryThreadDto,
   UpdateForumCategoryDto,
   UpdateForumDto,
   UpdateForumPostDto,
   UpdateThreadDto,
 } from './dto/forum.dto';
+import { ForumAutoService } from './forum-auto.service';
 import { ForumsService } from './forums.service';
 import { PaginationQueryDto } from '../../common/dto/pagination.dto';
 
 @ApiTags('forums')
 @Controller()
 export class ForumsController {
-  constructor(private readonly forumsService: ForumsService) {}
+  constructor(
+    private readonly forumsService: ForumsService,
+    private readonly forumAutoService: ForumAutoService,
+  ) {}
 
   // Forum categories
   @Public()
@@ -107,6 +113,31 @@ export class ForumsController {
   @Get('forums/:id/threads')
   findForumThreads(@Param('id', ParseIntPipe) id: number, @Query() query: QueryThreadDto) {
     return this.forumsService.findThreadsByForumId(id, query);
+  }
+
+  // Admin moderation lists
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MODERATOR)
+  @Post('admin/forum-auto')
+  createForumAuto(@Body() dto: CreateForumAutoDto) {
+    return this.forumAutoService.createFromFacebook(dto);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MODERATOR)
+  @Get('admin/threads')
+  findThreadsAdmin(@Query() query: QueryThreadDto) {
+    return this.forumsService.findThreadsAdmin(query);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MODERATOR)
+  @Get('admin/forum-posts')
+  findPostsAdmin(@Query() query: QueryForumPostDto) {
+    return this.forumsService.findPostsAdmin(query);
   }
 
   // Threads
