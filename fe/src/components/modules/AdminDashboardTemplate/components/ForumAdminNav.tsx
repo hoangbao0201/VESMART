@@ -3,14 +3,20 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const LINKS = [
+type NavLink = {
+  href: string;
+  label: string;
+  exact?: boolean;
+};
+
+const LINKS: NavLink[] = [
   { href: "/admin/forums", label: "Tổng quan", exact: true },
   { href: "/admin/forums/auto", label: "Forum Auto" },
   { href: "/admin/forums/categories", label: "Categories" },
   { href: "/admin/forums/boards", label: "Forums" },
   { href: "/admin/forums/threads", label: "Threads" },
   { href: "/admin/forums/posts", label: "Posts" },
-] as const;
+];
 
 const ForumAdminNav = () => {
   const pathname = usePathname();
