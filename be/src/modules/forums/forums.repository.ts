@@ -102,9 +102,9 @@ export class ForumsRepository {
       where: { slug, deleted_at: null },
       include: {
         forum: { select: { id: true, name: true, slug: true } },
-        user: { select: { id: true, username: true, avatar: true } },
+        user: { select: { id: true, username: true, full_name: true, avatar: true } },
         last_reply_user: {
-          select: { id: true, username: true, avatar: true },
+          select: { id: true, username: true, full_name: true, avatar: true },
         },
         thread_tags: {
           where: { deleted_at: null },
@@ -115,7 +115,7 @@ export class ForumsRepository {
           orderBy: { created_at: 'asc' },
           take: 50,
           include: {
-            user: { select: { id: true, username: true, avatar: true } },
+            user: { select: { id: true, username: true, full_name: true, avatar: true } },
           },
         },
       },
@@ -127,9 +127,9 @@ export class ForumsRepository {
       where: { id, deleted_at: null },
       include: {
         forum: true,
-        user: { select: { id: true, username: true, avatar: true } },
+        user: { select: { id: true, username: true, full_name: true, avatar: true } },
         last_reply_user: {
-          select: { id: true, username: true, avatar: true },
+          select: { id: true, username: true, full_name: true, avatar: true },
         },
         thread_tags: {
           where: { deleted_at: null },
@@ -140,7 +140,7 @@ export class ForumsRepository {
           orderBy: { created_at: 'asc' },
           take: 50,
           include: {
-            user: { select: { id: true, username: true, avatar: true } },
+            user: { select: { id: true, username: true, full_name: true, avatar: true } },
           },
         },
       },
@@ -164,9 +164,9 @@ export class ForumsRepository {
         orderBy: params.orderBy,
         include: {
           forum: { select: { id: true, name: true, slug: true } },
-          user: { select: { id: true, username: true, avatar: true } },
+          user: { select: { id: true, username: true, full_name: true, avatar: true } },
           last_reply_user: {
-            select: { id: true, username: true, avatar: true },
+            select: { id: true, username: true, full_name: true, avatar: true },
           },
         },
       }),
@@ -225,7 +225,7 @@ export class ForumsRepository {
         where,
         orderBy: params.orderBy ?? { created_at: 'asc' },
         include: {
-          user: { select: { id: true, username: true, avatar: true } },
+          user: { select: { id: true, username: true, full_name: true, avatar: true } },
         },
       }),
       this.prisma.forumPost.count({ where }),
@@ -254,7 +254,7 @@ export class ForumsRepository {
         where,
         orderBy: params.orderBy ?? { created_at: 'desc' },
         include: {
-          user: { select: { id: true, username: true, avatar: true } },
+          user: { select: { id: true, username: true, full_name: true, avatar: true } },
           thread: { select: { id: true, slug: true, title: true } },
         },
       }),

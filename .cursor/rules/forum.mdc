@@ -1,5 +1,5 @@
 ---
-description: Forum UI kiểu VOZ và seed thảo luận VESMART
+description: Forum UI kiểu Facebook feed và seed thảo luận VESMART
 globs: fe/src/components/**/Forum*/**,fe/src/components/**/Thread*/**,be/scripts/seed-forum*.ts
 alwaysApply: false
 ---
@@ -8,15 +8,17 @@ alwaysApply: false
 
 ## UI (FE)
 
-- Thread detail: layout kiểu VOZ — cột user trái, nội dung phải (`ForumPostBlock` + `forum-post.css`).
-- Mobile: giảm padding container (`px-2`), post full-width.
+- Thread detail: layout kiểu **Facebook feed** (`ForumPostBlock` + `forum-post.css`).
+  - Mỗi bài một card riêng; avatar trái + **tên hiển thị đậm** + thời gian cùng hàng.
+  - Avatar không ảnh dùng màu ổn định theo username (dễ phân biệt người).
+  - OP có badge "Chủ thread".
 - Reply: `ReplyBox variant="forum"`; reactions `compact`.
-- Không dùng card bo góc dày cho từng reply.
+- Không dùng layout VOZ cột user trái / nội dung phải.
 
 ## Seed thảo luận
 
 - Script: `be/scripts/seed-forum-*.ts`, idempotent theo `baseSlug`.
-- User tên Việt, nội dung ngắn, bình luận kỹ thuật hỏi đáp / chia sẻ.
+- User tên Việt (`full_name`), nội dung ngắn, bình luận kỹ thuật hỏi đáp / chia sẻ.
 - Không nhét URL `/forum/threads/...` vào nội dung. Muốn nhắc thread khác thì ghi **tiêu đề** bằng chữ (vd. `"Qrevo S lau khô..."`).
 - Forum thuộc category `robot-hut-bui`; tạo forum brand nếu thiếu (`ecovacs`, `roborock`, `dreame`).
 - Bump `thread_count` / `post_count` / `last_*` khi seed.

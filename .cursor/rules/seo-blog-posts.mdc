@@ -15,6 +15,17 @@ Mỗi bài gồm: `title`, `baseSlug`, `summary` (~150–160 ký tự), `seoTitl
 
 Helper dùng chung: `be/scripts/lib/seo-seed.ts` (`loadEnvFile`, `assertNoEmDash`, `repairCta`, `urlsFromCategory`).
 
+## Summary / seoDescription (bắt buộc)
+
+- Độ dài ~150–160 ký tự (summary) và `seoDescription` tương tự; đủ ý, không cắt giữa cụm từ.
+- **Câu đầu = nội dung chính có danh từ chủ đề**, viết rõ ràng, tốt cho SEO (model, lỗi, địa điểm, dịch vụ…).
+- **Không** copy nguyên `title` / `seoTitle` vào đầu mô tả (được phép cùng từ khóa nhưng câu khác, bổ sung ý).
+- **Không** mở bằng filler: "Bạn đang tìm…", "Trong bài viết này…", "Hãy cùng…", "Giới thiệu về…".
+- Thứ tự ưu tiên trong 1–2 câu đầu: **danh từ chủ đề + lợi ích / vấn đề / địa điểm** → chi tiết phụ / CTA nhẹ sau.
+
+Ví dụ tốt: `Robot Ecovacs X1 OMNI không về trạm thường do tiếp điểm oxi hóa hoặc cảm biến docking lệch. VESMART Đà Nẵng kiểm tra và sửa…`  
+Ví dụ xấu: `X1 OMNI hết pin giữa nhà không chịu về trạm?` (trùng title) hoặc `Trong bài này chúng ta sẽ tìm hiểu…`
+
 ## Nội dung SEO
 
 - Đúng **chủ đề user yêu cầu**; intent rõ (informational / transactional / local).
@@ -44,5 +55,6 @@ Chủ đề: Ecovacs Deebot X1 OMNI
 ## Kiểm tra trước khi xong
 
 - [ ] Không còn ký tự `—` trong title/summary/seo/content
+- [ ] `summary` / `seoDescription` mở đầu bằng câu có danh từ chủ đề (không copy title, không filler)
 - [ ] Ảnh từ đúng ImageCategory (hoặc fallback `chia-se`)
 - [ ] Verify API: `GET /posts/{slug}` status `PUBLISHED`, content có CDN robot/đúng mục

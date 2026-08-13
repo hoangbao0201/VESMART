@@ -11,10 +11,13 @@ type ForumPostBlockProps = {
   createdAt: string;
   editedAt?: string | null;
   username: string;
+  displayName?: string | null;
   avatar?: string | null;
   /** Show reaction bar (replies only). */
   showReactions?: boolean;
   reactionTargetId?: string | number;
+  /** First post / OP highlight. */
+  isOriginal?: boolean;
 };
 
 const ForumPostBlock = ({
@@ -23,30 +26,39 @@ const ForumPostBlock = ({
   createdAt,
   editedAt,
   username,
+  displayName,
   avatar,
   showReactions = false,
   reactionTargetId,
+  isOriginal = false,
 }: ForumPostBlockProps) => {
+  const name = (displayName?.trim() || username).trim() || "Thành viên";
   const displayTime =
     formatRelativeTime(createdAt) ?? formatDate(createdAt) ?? createdAt;
 
   return (
-    <article className="forum-post">
-      <aside className="forum-post-user">
-        <Link href={`/u/${username}`} title={username}>
-          <UserAvatar username={username} avatar={avatar} size="lg" />
-        </Link>
-        <Link href={`/u/${username}`} className="forum-post-username">
-          {username}
-        </Link>
-        <span className="forum-post-rank">Thành viên</span>
-      </aside>
+    <article
+      className={`forum-post${isOriginal ? " forum-post--op" : ""}`}
+      aria-label={`Bài của ${name}`}
+    >
+      <Link href={`/u/${username}`} className="forum-post-avatar" title={name}>
+        <UserAvatar username={name} avatar={avatar} size="md" colorKey={username} />
+      </Link>
 
       <div className="forum-post-main">
         <header className="forum-post-head">
-          <div className="flex flex-wrap items-center gap-x-2">
-            <time dateTime={createdAt}>{displayTime}</time>
-            {editedAt ? <span>· đã sửa</span> : null}
+          <div className="forum-post-who">
+            <Link href={`/u/${username}`} className="forum-post-username">
+              {name}
+            </Link>
+            {isOriginal ? <span className="forum-post-badge">Chủ thread</span> : null}
+            <span className="forum-post-meta" aria-hidden>
+              ·
+            </span>
+            <time className="forum-post-time" dateTime={createdAt} title={formatDate(createdAt) ?? createdAt}>
+              {displayTime}
+            </time>
+            {editedAt ? <span className="forum-post-meta">· đã sửa</span> : null}
           </div>
           <span className="forum-post-num">#{postNumber}</span>
         </header>

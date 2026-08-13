@@ -208,7 +208,7 @@ export class ForumsService {
             },
             include: {
               forum: { select: { id: true, name: true, slug: true } },
-              user: { select: { id: true, username: true, avatar: true } },
+              user: { select: { id: true, username: true, full_name: true, avatar: true } },
             },
           });
 
@@ -217,7 +217,7 @@ export class ForumsService {
             data: { slug: withIdSuffix(baseSlug, created.id) },
             include: {
               forum: { select: { id: true, name: true, slug: true } },
-              user: { select: { id: true, username: true, avatar: true } },
+              user: { select: { id: true, username: true, full_name: true, avatar: true } },
             },
           });
 
@@ -502,7 +502,7 @@ export class ForumsService {
                 : {}),
             },
             include: {
-              user: { select: { id: true, username: true, avatar: true } },
+              user: { select: { id: true, username: true, full_name: true, avatar: true } },
             },
           });
 

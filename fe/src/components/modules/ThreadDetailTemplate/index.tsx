@@ -48,6 +48,8 @@ const ThreadDetailTemplate = async ({ slug }: ThreadDetailTemplateProps) => {
       : await listThreadPosts(thread.id, { page: 1, limit: 50 });
   const posts = postsPage.items;
   const author = thread.user?.username ?? "Ẩn danh";
+  const authorDisplay =
+    thread.user?.fullName?.trim() || thread.user?.username || "Ẩn danh";
   const tags = thread.tags ?? [];
   const discussionJsonLd = {
     "@context": "https://schema.org",
@@ -55,7 +57,7 @@ const ThreadDetailTemplate = async ({ slug }: ThreadDetailTemplateProps) => {
     headline: thread.title,
     text: toPlainText(thread.content, 300),
     datePublished: thread.createdAt,
-    author: { "@type": "Person", name: author },
+    author: { "@type": "Person", name: authorDisplay },
     url: absoluteUrl(threadPath(thread.slug)),
     interactionStatistic: {
       "@type": "InteractionCounter",
@@ -111,9 +113,9 @@ const ThreadDetailTemplate = async ({ slug }: ThreadDetailTemplateProps) => {
                   bởi{" "}
                   <Link
                     href={`/u/${author}`}
-                    className="font-semibold text-[#1565c0] hover:underline dark:text-[#64b5f6]"
+                    className="font-semibold text-[#0866ff] hover:underline dark:text-[#5b9bff]"
                   >
-                    {author}
+                    {authorDisplay}
                   </Link>
                 </span>
                 <span aria-hidden>·</span>
@@ -146,7 +148,9 @@ const ThreadDetailTemplate = async ({ slug }: ThreadDetailTemplateProps) => {
             content={thread.content}
             createdAt={thread.createdAt}
             username={author}
+            displayName={authorDisplay}
             avatar={thread.user?.avatar}
+            isOriginal
           />
 
           {posts.length === 0 ? (
@@ -154,6 +158,8 @@ const ThreadDetailTemplate = async ({ slug }: ThreadDetailTemplateProps) => {
           ) : (
             posts.map((post, index) => {
               const postAuthor = post.user?.username ?? "Thành viên";
+              const postDisplay =
+                post.user?.fullName?.trim() || post.user?.username || "Thành viên";
               return (
                 <ForumPostBlock
                   key={post.id}
@@ -162,6 +168,7 @@ const ThreadDetailTemplate = async ({ slug }: ThreadDetailTemplateProps) => {
                   createdAt={post.createdAt}
                   editedAt={post.editedAt}
                   username={postAuthor}
+                  displayName={postDisplay}
                   avatar={post.user?.avatar}
                   showReactions
                   reactionTargetId={post.id}

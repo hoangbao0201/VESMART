@@ -9,6 +9,7 @@ export type ForumSummary = {
 export type UserSummary = {
   id: number;
   username: string;
+  fullName?: string | null;
   avatar: string | null;
 };
 
