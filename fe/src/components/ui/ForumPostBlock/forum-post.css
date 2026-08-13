@@ -22,7 +22,37 @@
   padding: 0.875rem 1rem;
 }
 
-.forum-thread-title h1 {
+.forum-post-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-bottom: 0.15rem;
+}
+
+.forum-post-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.forum-post-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.forum-post-flag--pin {
+  color: var(--primary, #0f766e);
+}
+
+.forum-post-flag--lock {
+  color: var(--forum-muted);
+}
+
+.forum-post-title {
+  margin: 0;
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.35;
@@ -30,17 +60,17 @@
 }
 
 @media (min-width: 640px) {
-  .forum-thread-title h1 {
+  .forum-post-title {
     font-size: 1.375rem;
   }
 }
 
-.forum-thread-meta {
+.forum-post-stats {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.35rem 0.5rem;
-  margin-top: 0.5rem;
+  margin: 0;
   font-size: 0.8125rem;
   color: var(--forum-muted);
 }
@@ -49,7 +79,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.375rem;
-  margin-top: 0.625rem;
 }
 
 .forum-thread-tag {
@@ -79,7 +108,15 @@
 }
 
 .forum-post--op {
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  border-color: color-mix(in srgb, #0866ff 28%, var(--forum-border));
+  background: color-mix(in srgb, #0866ff 7%, var(--forum-post-bg));
+  box-shadow: 0 1px 2px rgb(8 102 255 / 0.06);
+}
+
+.dark .forum-post--op {
+  border-color: color-mix(in srgb, #5b9bff 35%, var(--forum-border));
+  background: color-mix(in srgb, #5b9bff 12%, var(--forum-post-bg));
+  box-shadow: none;
 }
 
 .forum-post-avatar {
@@ -209,8 +246,12 @@
 }
 
 .forum-post-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
   margin-top: 0.25rem;
-  padding-top: 0.35rem;
+  padding-top: 0.5rem;
   border-top: 1px solid color-mix(in srgb, var(--forum-border) 70%, transparent);
 }
 

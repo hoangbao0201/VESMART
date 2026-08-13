@@ -110,7 +110,9 @@ export async function resolveShareUrl(shareUrl) {
 function extractTokens(html) {
   const dtsg =
     html.match(/"DTSGInitialData",\[\],\{"token":"([^"]+)"/)?.[1] ||
+    html.match(/"DTSGInitialData",\[\],\{[^}]*"token":"([^"]+)"/)?.[1] ||
     html.match(/"dtsg":\{"token":"([^"]+)"/)?.[1] ||
+    html.match(/name="fb_dtsg"\s+value="([^"]+)"/)?.[1] ||
     html.match(/"dtsg"\s*:\s*"([^"]+)"/)?.[1] ||
     null;
   const lsd =
@@ -123,10 +125,33 @@ function extractTokens(html) {
     null;
   const userId =
     html.match(/"USER_ID":"(\d+)"/)?.[1] ||
+    html.match(/"ACCOUNT_ID":"(\d+)"/)?.[1] ||
     html.match(/"actorID":"(\d+)"/)?.[1] ||
     null;
 
   return { dtsg, lsd, jazoest, userId };
+}
+
+/** Cookie có c_user+xs nhưng FB vẫn coi logged-out → không lấy đủ comment / GraphQL. */
+function assertLoggedInSession(html, tokens) {
+  const userId = tokens.userId && tokens.userId !== "0" ? tokens.userId : null;
+  const loggedOut =
+    !userId ||
+    /"USER_ID":"0"/.test(html) ||
+    /"ACCOUNT_ID":"0"/.test(html) ||
+    (!tokens.dtsg &&
+      /"DTSGInitialData",\[\],\{\}/.test(html) &&
+      /login_form|Log in to Facebook/i.test(html));
+
+  if (loggedOut || !tokens.dtsg) {
+    const err = new Error(
+      "FB_COOKIE hết hạn hoặc không còn đăng nhập (USER_ID=0 / thiếu fb_dtsg). " +
+        "Mở Chrome đã login Facebook → DevTools → Network → click bất kỳ request facebook.com → " +
+        "Request Headers → copy nguyên Cookie → cập nhật FB_COOKIE trong be/.env (prod + local), rồi restart BE."
+    );
+    err.code = "FB_COOKIE_EXPIRED";
+    throw err;
+  }
 }
 
 function extractFeedbackId(html, postId) {
@@ -489,9 +514,9 @@ export async function scrapeFacebookPost(postUrl, cookie) {
 
   const authorId = extractPostAuthorId(html, postId);
   const tokens = extractTokens(html);
-  if (!tokens.userId) {
-    tokens.userId = cookie.match(/c_user=(\d+)/)?.[1] || null;
-  }
+  // Không fallback c_user từ cookie: HTML USER_ID=0 mới phản ánh session thật
+  assertLoggedInSession(html, tokens);
+
   const feedbackId = extractFeedbackId(html, postId);
   const docIds = discoverCommentDocIds(html);
 

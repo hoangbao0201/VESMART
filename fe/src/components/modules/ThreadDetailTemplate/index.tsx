@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Lock, Pin } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import FavoriteButton from "@/components/ui/FavoriteButton";
@@ -14,7 +13,6 @@ import {
   threadPath,
   toPlainText,
 } from "@/lib/seo";
-import { formatDate, formatRelativeTime } from "@/lib/utils/format";
 import "@/components/ui/ForumPostBlock/forum-post.css";
 
 type ThreadDetailTemplateProps = {
@@ -90,58 +88,6 @@ const ThreadDetailTemplate = async ({ slug }: ThreadDetailTemplateProps) => {
       />
 
       <div className="forum-thread mx-auto max-w-4xl">
-        <header className="forum-thread-title">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div className="min-w-0 flex-1 space-y-2">
-              <div className="flex flex-wrap items-center gap-2 text-xs">
-                {thread.isPinned ? (
-                  <span className="inline-flex items-center gap-1 font-semibold text-primary">
-                    <Pin className="size-3.5" aria-hidden />
-                    Ghim
-                  </span>
-                ) : null}
-                {thread.isLocked ? (
-                  <span className="inline-flex items-center gap-1 font-semibold text-muted-foreground">
-                    <Lock className="size-3.5" aria-hidden />
-                    Khóa
-                  </span>
-                ) : null}
-              </div>
-              <h1>{thread.title}</h1>
-              <div className="forum-thread-meta">
-                <span>
-                  bởi{" "}
-                  <Link
-                    href={`/u/${author}`}
-                    className="font-semibold text-[#0866ff] hover:underline dark:text-[#5b9bff]"
-                  >
-                    {authorDisplay}
-                  </Link>
-                </span>
-                <span aria-hidden>·</span>
-                <time dateTime={thread.createdAt}>
-                  {formatDate(thread.createdAt) ??
-                    formatRelativeTime(thread.createdAt)}
-                </time>
-                <span aria-hidden>·</span>
-                <span>{thread.replyCount} trả lời</span>
-                <span aria-hidden>·</span>
-                <span>{thread.views} lượt xem</span>
-              </div>
-              {tags.length > 0 ? (
-                <ul className="forum-thread-tags">
-                  {tags.map((tag) => (
-                    <li key={tag.id}>
-                      <span className="forum-thread-tag">{tag.name}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-            <FavoriteButton targetType="THREAD" targetId={thread.id} />
-          </div>
-        </header>
-
         <div className="forum-post-list">
           <ForumPostBlock
             postNumber={1}
@@ -151,6 +97,15 @@ const ThreadDetailTemplate = async ({ slug }: ThreadDetailTemplateProps) => {
             displayName={authorDisplay}
             avatar={thread.user?.avatar}
             isOriginal
+            title={thread.title}
+            isPinned={thread.isPinned}
+            isLocked={thread.isLocked}
+            replyCount={thread.replyCount}
+            views={thread.views}
+            tags={tags}
+            actions={
+              <FavoriteButton targetType="THREAD" targetId={thread.id} />
+            }
           />
 
           {posts.length === 0 ? (
@@ -159,7 +114,9 @@ const ThreadDetailTemplate = async ({ slug }: ThreadDetailTemplateProps) => {
             posts.map((post, index) => {
               const postAuthor = post.user?.username ?? "Thành viên";
               const postDisplay =
-                post.user?.fullName?.trim() || post.user?.username || "Thành viên";
+                post.user?.fullName?.trim() ||
+                post.user?.username ||
+                "Thành viên";
               return (
                 <ForumPostBlock
                   key={post.id}

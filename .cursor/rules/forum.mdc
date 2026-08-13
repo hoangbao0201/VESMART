@@ -10,10 +10,10 @@ alwaysApply: false
 
 - Thread detail: layout kiểu **Facebook feed** (`ForumPostBlock` + `forum-post.css`).
   - Mỗi bài một card riêng; avatar trái + **tên hiển thị đậm** + thời gian cùng hàng.
+  - OP: **một card** (title + meta + nội dung) — không tách header riêng; badge "Chủ thread".
   - Avatar không ảnh dùng màu ổn định theo username (dễ phân biệt người).
-  - OP có badge "Chủ thread".
-- Reply: `ReplyBox variant="forum"`; reactions `compact`.
-- Không dùng layout VOZ cột user trái / nội dung phải.
+  - Reply: `ReplyBox variant="forum"`; reactions `compact`.
+  - Không dùng layout VOZ cột user trái / nội dung phải.
 
 ## Seed thảo luận
 

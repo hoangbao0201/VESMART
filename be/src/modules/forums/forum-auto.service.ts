@@ -222,15 +222,35 @@ export class ForumAutoService {
       options?: { namesPath?: string },
     ) => ScrapedPayload)(scraped, { namesPath });
 
+    const scrapeMeta =
+      scraped && typeof scraped === 'object' && 'meta' in scraped
+        ? (scraped as { meta?: { usedGraphql?: boolean; feedbackId?: string } })
+            .meta
+        : undefined;
+
     if (built.comments.length < 50) {
       this.logger.warn(
-        `Forum Auto scrape chỉ được ${built.comments.length} comments (< 50). postId=${built.postId}`,
+        `Forum Auto scrape chỉ được ${built.comments.length} comments (< 50). postId=${built.postId} usedGraphql=${Boolean(scrapeMeta?.usedGraphql)}`,
       );
-    } else {
-      this.logger.log(
-        `Forum Auto scrape ${built.comments.length} comments (postId=${built.postId})`,
-      );
+      throw new BadRequestException({
+        message:
+          `Chỉ scrape được ${built.comments.length} comment (cần ≥ 50). ` +
+          `Thường do FB_COOKIE hết hạn / GraphQL không chạy. ` +
+          `Cập nhật FB_COOKIE từ Chrome (c_user+xs còn login) rồi thử lại.`,
+        error: {
+          code: 'FACEBOOK_COMMENTS_TOO_FEW',
+          details: {
+            scrapedComments: built.comments.length,
+            usedGraphql: Boolean(scrapeMeta?.usedGraphql),
+            postId: built.postId,
+          },
+        },
+      });
     }
+
+    this.logger.log(
+      `Forum Auto scrape ${built.comments.length} comments (postId=${built.postId})`,
+    )
     const opUserId = await this.ensureForumUser(built.datapost.author_name);
     const title = this.titleFromContent(content);
 
