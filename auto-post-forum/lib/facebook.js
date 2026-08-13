@@ -1,10 +1,9 @@
 const DESKTOP_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36";
 
-/** Target: lấy ít nhất 50 bình luận chữ (cap cao hơn để bù lọc trùng). */
-const MIN_COMMENTS = 50;
-const MAX_COMMENTS = 100;
-const MAX_COMMENT_PAGES = 25;
+/** Cap bình luận chữ đưa vào forum (thiếu cũng OK). */
+const MAX_COMMENTS = 15;
+const MAX_COMMENT_PAGES = 5;
 
 /** Known / recently seen CommentsList doc_ids (FB rotates these). */
 const COMMENT_DOC_IDS = [
@@ -446,7 +445,7 @@ async function fetchCommentsGraphql({
   docIds,
   cursor = null,
   postUrl,
-  count = 50,
+  count = MAX_COMMENTS,
   feedLocations = FEED_LOCATIONS,
   preferred,
 }) {
@@ -577,7 +576,7 @@ async function fetchCommentsGraphql({
 }
 
 /**
- * Fetch post + ít nhất ~50 bình luận chữ (cap MAX_COMMENTS).
+ * Fetch post + tối đa MAX_COMMENTS bình luận chữ (thiếu cũng OK).
  * @throws {Error} with code IMAGE_ONLY | FETCH_FAILED | ...
  */
 export async function scrapeFacebookPost(postUrl, cookie) {
@@ -647,7 +646,7 @@ export async function scrapeFacebookPost(postUrl, cookie) {
         docIds,
         cursor,
         postUrl: res.url || url,
-        count: 50,
+        count: MAX_COMMENTS,
         feedLocations,
         preferred: gqlPreferred,
       });
@@ -664,7 +663,7 @@ export async function scrapeFacebookPost(postUrl, cookie) {
             docIds,
             cursor,
             postUrl: res.url || url,
-            count: 50,
+            count: MAX_COMMENTS,
             feedLocations,
           });
         }
@@ -702,13 +701,7 @@ export async function scrapeFacebookPost(postUrl, cookie) {
   // Keep only text comments, cap MAX_COMMENTS
   comments = comments.filter((c) => c.message && c.message.trim()).slice(0, MAX_COMMENTS);
 
-  if (comments.length < MIN_COMMENTS) {
-    const totalHint =
-      fbTotalCount != null ? ` (FB báo ~${fbTotalCount} comment trên bài)` : "";
-    console.warn(
-      `⚠ Chỉ lấy được ${comments.length}/${MIN_COMMENTS}+ comment chữ${totalHint}. Bài có thể ít comment chữ hoặc cookie/doc_id hạn chế.`
-    );
-  } else if (!usedGraphql && comments.length > 0 && comments.length < MAX_COMMENTS) {
+  if (!usedGraphql && comments.length > 0 && comments.length < MAX_COMMENTS) {
     console.warn(
       `⚠ Lấy ${comments.length} comment chủ yếu từ HTML (chưa GraphQL đầy đủ).`
     );
@@ -725,7 +718,7 @@ export async function scrapeFacebookPost(postUrl, cookie) {
       feedbackId,
       usedGraphql,
       commentCount: comments.length,
-      minTarget: MIN_COMMENTS,
+      maxComments: MAX_COMMENTS,
       fbTotalCount,
       gql: gqlPreferred,
     },
