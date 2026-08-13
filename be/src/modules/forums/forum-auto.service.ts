@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { UserRole, UserStatus } from '@prisma/client';
@@ -41,6 +42,7 @@ type PayloadLib = {
 
 @Injectable()
 export class ForumAutoService {
+  private readonly logger = new Logger(ForumAutoService.name);
   private passwordHashPromise: Promise<string> | null = null;
 
   constructor(
@@ -220,6 +222,15 @@ export class ForumAutoService {
       options?: { namesPath?: string },
     ) => ScrapedPayload)(scraped, { namesPath });
 
+    if (built.comments.length < 50) {
+      this.logger.warn(
+        `Forum Auto scrape chỉ được ${built.comments.length} comments (< 50). postId=${built.postId}`,
+      );
+    } else {
+      this.logger.log(
+        `Forum Auto scrape ${built.comments.length} comments (postId=${built.postId})`,
+      );
+    }
     const opUserId = await this.ensureForumUser(built.datapost.author_name);
     const title = this.titleFromContent(content);
 

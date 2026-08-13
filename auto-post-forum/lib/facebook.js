@@ -1,7 +1,11 @@
 const DESKTOP_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36";
 
-const MAX_COMMENTS = 50;
+/** Target: lấy ít nhất 50 bình luận chữ (cap cao hơn để bù lọc trùng). */
+const MIN_COMMENTS = 50;
+const MAX_COMMENTS = 100;
+const MAX_COMMENT_PAGES = 25;
+
 
 /** Known / recently seen CommentsList doc_ids (FB rotates these). */
 const COMMENT_DOC_IDS = [
@@ -338,6 +342,7 @@ async function fetchCommentsGraphql({
   docIds,
   cursor = null,
   postUrl,
+  count = 50,
 }) {
   const variables = {
     commentsIntentToken: "RANKED_UNFILTERED_CHRONOLOGICAL_REPLIES_INTENT_V1",
@@ -348,8 +353,14 @@ async function fetchCommentsGraphql({
     useDefaultActor: false,
     id: feedbackId,
     __relay_internal__pv__IsWorkUserrelayprovider: false,
+    // Relay page size — thiếu count thì FB thường chỉ trả vài comment/page
+    count,
+    first: count,
   };
-  if (cursor) variables.cursor = cursor;
+  if (cursor) {
+    variables.cursor = cursor;
+    variables.after = cursor;
+  }
 
   const userId = tokens.userId || cookie.match(/c_user=(\d+)/)?.[1] || "0";
 
@@ -436,7 +447,7 @@ async function fetchCommentsGraphql({
 }
 
 /**
- * Fetch post + up to 50 ranked text comments.
+ * Fetch post + ít nhất ~50 bình luận chữ (cap MAX_COMMENTS).
  * @throws {Error} with code IMAGE_ONLY | FETCH_FAILED | ...
  */
 export async function scrapeFacebookPost(postUrl, cookie) {
@@ -490,7 +501,13 @@ export async function scrapeFacebookPost(postUrl, cookie) {
   if (comments.length < MAX_COMMENTS && feedbackId && tokens.dtsg) {
     let cursor = null;
     let workingDocIds = docIds;
-    for (let page = 0; page < 10 && comments.length < MAX_COMMENTS; page++) {
+    let stagnant = 0;
+    for (
+      let page = 0;
+      page < MAX_COMMENT_PAGES && comments.length < MAX_COMMENTS;
+      page++
+    ) {
+      const before = comments.length;
       const pageResult = await fetchCommentsGraphql({
         cookie,
         tokens,
@@ -498,6 +515,7 @@ export async function scrapeFacebookPost(postUrl, cookie) {
         docIds: workingDocIds,
         cursor,
         postUrl: res.url || url,
+        count: 50,
       });
       if (!pageResult.comments.length) {
         if (page === 0) {
@@ -510,6 +528,12 @@ export async function scrapeFacebookPost(postUrl, cookie) {
       usedGraphql = true;
       if (pageResult.docId) workingDocIds = [pageResult.docId, ...docIds];
       comments = dedupeComments([...comments, ...pageResult.comments]);
+      if (comments.length <= before) {
+        stagnant += 1;
+        if (stagnant >= 2) break;
+      } else {
+        stagnant = 0;
+      }
       cursor = pageResult.nextCursor;
       if (!cursor) break;
     }
@@ -517,12 +541,16 @@ export async function scrapeFacebookPost(postUrl, cookie) {
     console.warn("⚠ Không tìm thấy feedback_id — chỉ dùng comment trong HTML.");
   }
 
-  // Keep only text comments, cap 50 (already text-filtered)
+  // Keep only text comments, cap MAX_COMMENTS
   comments = comments.filter((c) => c.message && c.message.trim()).slice(0, MAX_COMMENTS);
 
-  if (!usedGraphql && comments.length > 0 && comments.length < MAX_COMMENTS) {
+  if (comments.length < MIN_COMMENTS) {
     console.warn(
-      `⚠ Chỉ lấy được ${comments.length} comment từ HTML (Phù hợp nhất / embed). Có thể chưa đủ 50.`
+      `⚠ Chỉ lấy được ${comments.length}/${MIN_COMMENTS}+ comment. Bài có thể ít comment hoặc cookie/doc_id hạn chế.`
+    );
+  } else if (!usedGraphql && comments.length > 0 && comments.length < MAX_COMMENTS) {
+    console.warn(
+      `⚠ Lấy ${comments.length} comment chủ yếu từ HTML (chưa GraphQL đầy đủ).`
     );
   }
 
@@ -537,6 +565,7 @@ export async function scrapeFacebookPost(postUrl, cookie) {
       feedbackId,
       usedGraphql,
       commentCount: comments.length,
+      minTarget: MIN_COMMENTS,
     },
   };
 }
