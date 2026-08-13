@@ -32,6 +32,7 @@
     "prisma:seed-seo-dyson-ship": "ts-node --project scripts/tsconfig.json scripts/seed-seo-dyson-ship-posts.ts",
     "prisma:seed-seo-ecovacs-vesmart": "ts-node --project scripts/tsconfig.json scripts/seed-seo-ecovacs-vesmart-post.ts",
     "prisma:seed-seo-qrevo-s": "ts-node --project scripts/tsconfig.json scripts/seed-seo-qrevo-s-posts.ts",
+    "prisma:seed-seo-tineco": "ts-node --project scripts/tsconfig.json scripts/seed-seo-tineco-posts.ts",
     "prisma:seed-forum-repair": "ts-node --project scripts/tsconfig.json scripts/seed-forum-repair-threads.ts"
   },
   "prisma": {
