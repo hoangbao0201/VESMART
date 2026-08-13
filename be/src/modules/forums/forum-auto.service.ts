@@ -224,24 +224,34 @@ export class ForumAutoService {
 
     const scrapeMeta =
       scraped && typeof scraped === 'object' && 'meta' in scraped
-        ? (scraped as { meta?: { usedGraphql?: boolean; feedbackId?: string } })
-            .meta
+        ? (scraped as {
+            meta?: {
+              usedGraphql?: boolean;
+              feedbackId?: string;
+              fbTotalCount?: number | null;
+            };
+          }).meta
         : undefined;
 
     if (built.comments.length < 50) {
       this.logger.warn(
-        `Forum Auto scrape chỉ được ${built.comments.length} comments (< 50). postId=${built.postId} usedGraphql=${Boolean(scrapeMeta?.usedGraphql)}`,
+        `Forum Auto scrape chỉ được ${built.comments.length} comments (< 50). postId=${built.postId} usedGraphql=${Boolean(scrapeMeta?.usedGraphql)} fbTotal=${scrapeMeta?.fbTotalCount ?? '?'}`,
       );
+      const fbHint =
+        scrapeMeta?.fbTotalCount != null
+          ? ` Facebook báo bài này có ~${scrapeMeta.fbTotalCount} comment.`
+          : '';
       throw new BadRequestException({
         message:
-          `Chỉ scrape được ${built.comments.length} comment (cần ≥ 50). ` +
-          `Thường do FB_COOKIE hết hạn / GraphQL không chạy. ` +
-          `Cập nhật FB_COOKIE từ Chrome (c_user+xs còn login) rồi thử lại.`,
+          `Chỉ scrape được ${built.comments.length} comment chữ (cần ≥ 50).` +
+          fbHint +
+          ` Chọn bài có nhiều bình luận chữ hơn, hoặc kiểm tra FB_COOKIE.`,
         error: {
           code: 'FACEBOOK_COMMENTS_TOO_FEW',
           details: {
             scrapedComments: built.comments.length,
             usedGraphql: Boolean(scrapeMeta?.usedGraphql),
+            fbTotalCount: scrapeMeta?.fbTotalCount ?? null,
             postId: built.postId,
           },
         },

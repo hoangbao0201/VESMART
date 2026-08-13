@@ -6,15 +6,37 @@ const MIN_COMMENTS = 50;
 const MAX_COMMENTS = 100;
 const MAX_COMMENT_PAGES = 25;
 
-
 /** Known / recently seen CommentsList doc_ids (FB rotates these). */
 const COMMENT_DOC_IDS = [
+  "37454905204157523", // 2026-08 CommentsListComponentsPaginationQuery
+  "28110813145238162", // Depth1CommentsListPaginationQuery
+  "28232639913040278", // Depth2CommentsListPaginationQuery
   "24339100875674342",
   "26104902314025443",
   "22172627752418328",
-  "9927528857340152",
-  "7274617722632877",
 ];
+
+const COMMENT_INTENTS = [
+  "CHRONOLOGICAL_UNFILTERED_INTENT_V1",
+  "REVERSE_CHRONOLOGICAL_UNFILTERED_INTENT_V1",
+  "RANKED_FILTERED_INTENT_V1",
+  "RANKED_UNFILTERED_CHRONOLOGICAL_REPLIES_INTENT_V1",
+];
+
+const FEED_LOCATIONS = [
+  "POST_PERMALINK_DIALOG",
+  "DEDICATED_COMMENTING_SURFACE",
+  "PERMALINK",
+  "NEWSFEED",
+  "GROUP_PERMALINK",
+];
+
+const RELAY_PROVIDERS = {
+  __relay_internal__pv__CometUFICommentAutoTranslationTyperelayprovider: "ORIGINAL",
+  __relay_internal__pv__CometUFICommentAvatarStickerAnimatedImagerelayprovider: false,
+  __relay_internal__pv__CometUFICommentActionLinksRewriteEnabledrelayprovider: false,
+  __relay_internal__pv__IsWorkUserrelayprovider: false,
+};
 
 function desktopHeaders(cookie) {
   return {
@@ -204,7 +226,64 @@ function discoverCommentDocIds(html) {
       idx += name.length;
     }
   }
-  return [...new Set([...found, ...COMMENT_DOC_IDS])];
+  // Relay operation exports sometimes appear as a.exports="DOC_ID"
+  const exportHits = [
+    ...html.matchAll(
+      /CommentsListComponentsPaginationQuery_facebookRelayOperation[^]{0,120}?exports="(\d{16,22})"/g
+    ),
+  ].map((m) => m[1]);
+  return [...new Set([...exportHits, ...found, ...COMMENT_DOC_IDS])];
+}
+
+/** Pull live doc_id from FB JS bundles referenced by the post HTML. */
+async function discoverDocIdsFromScripts(html, cookie) {
+  const urls = [
+    ...new Set(
+      [...html.matchAll(/src="(https:\/\/[^"]+)"/g)]
+        .map((m) => m[1])
+        .filter((u) => /rsrc\.php|\.js/i.test(u))
+    ),
+  ].slice(0, 40);
+
+  const found = [];
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, {
+        headers: {
+          Cookie: cookie,
+          "User-Agent": DESKTOP_UA,
+          Referer: "https://www.facebook.com/",
+        },
+      });
+      const text = await res.text();
+      const m = text.match(
+        /CommentsListComponentsPaginationQuery_facebookRelayOperation",\[\],\(function\([^)]*\)\{a\.exports="(\d{16,22})"/
+      );
+      if (m) found.push(m[1]);
+      const m2 = text.match(
+        /Depth1CommentsListPaginationQuery_facebookRelayOperation",\[\],\(function\([^)]*\)\{a\.exports="(\d{16,22})"/
+      );
+      if (m2) found.push(m2[1]);
+      if (found.length) break;
+    } catch {
+      /* ignore bundle fetch errors */
+    }
+  }
+  return [...new Set(found)];
+}
+
+function extractFeedLocations(html) {
+  const locs = [...html.matchAll(/"feed_location"\s*:\s*"([A-Z0-9_]+)"/g)].map(
+    (m) => m[1]
+  );
+  return [...new Set([...locs, ...FEED_LOCATIONS])];
+}
+
+function extractTotalCommentCount(html) {
+  const m =
+    html.match(/"comments"\s*:\s*\{[^}]*"total_count"\s*:\s*(\d+)/) ||
+    html.match(/"comment_rendering_instance"[^]{0,200}?"total_count"\s*:\s*(\d+)/);
+  return m ? Number(m[1]) : null;
 }
 
 /**
@@ -368,107 +447,133 @@ async function fetchCommentsGraphql({
   cursor = null,
   postUrl,
   count = 50,
+  feedLocations = FEED_LOCATIONS,
+  preferred,
 }) {
-  const variables = {
-    commentsIntentToken: "RANKED_UNFILTERED_CHRONOLOGICAL_REPLIES_INTENT_V1",
-    feedLocation: "DEDICATED_COMMENTING_SURFACE",
-    feedbackSource: 2,
-    focusCommentID: null,
-    scale: 1,
-    useDefaultActor: false,
-    id: feedbackId,
-    __relay_internal__pv__IsWorkUserrelayprovider: false,
-    // Relay page size — thiếu count thì FB thường chỉ trả vài comment/page
-    count,
-    first: count,
-  };
-  if (cursor) {
-    variables.cursor = cursor;
-    variables.after = cursor;
-  }
-
   const userId = tokens.userId || cookie.match(/c_user=(\d+)/)?.[1] || "0";
+  const intents = preferred?.intent
+    ? [preferred.intent, ...COMMENT_INTENTS.filter((i) => i !== preferred.intent)]
+    : COMMENT_INTENTS;
+  const locations = preferred?.feedLocation
+    ? [
+        preferred.feedLocation,
+        ...feedLocations.filter((l) => l !== preferred.feedLocation),
+      ]
+    : feedLocations;
+  const orderedDocIds = preferred?.docId
+    ? [preferred.docId, ...docIds.filter((d) => d !== preferred.docId)]
+    : docIds;
 
-  for (const docId of docIds) {
-    const body = new URLSearchParams({
-      av: userId,
-      __user: userId,
-      __a: "1",
-      __req: "1",
-      dpr: "1",
-      __ccg: "EXCELLENT",
-      __comet_req: "15",
-      fb_dtsg: tokens.dtsg || "",
-      jazoest: tokens.jazoest || "2",
-      fb_api_caller_class: "RelayModern",
-      fb_api_req_friendly_name: "CommentsListComponentsPaginationQuery",
-      variables: JSON.stringify(variables),
-      server_timestamps: "true",
-      doc_id: docId,
-    });
-    if (tokens.lsd) body.set("lsd", tokens.lsd);
+  for (const docId of orderedDocIds) {
+    for (const feedLocation of locations) {
+      for (const commentsIntentToken of intents) {
+        const variables = {
+          commentsAfterCount: count,
+          commentsAfterCursor: cursor,
+          commentsBeforeCount: null,
+          commentsBeforeCursor: null,
+          commentsIntentToken,
+          feedLocation,
+          focusCommentID: null,
+          id: feedbackId,
+          scale: 1,
+          useDefaultActor: false,
+          ...RELAY_PROVIDERS,
+        };
 
-    const headers = {
-      "User-Agent": DESKTOP_UA,
-      "Content-Type": "application/x-www-form-urlencoded",
-      Cookie: cookie,
-      Origin: "https://www.facebook.com",
-      Referer: postUrl,
-      "x-fb-friendly-name": "CommentsListComponentsPaginationQuery",
-      Accept: "*/*",
-    };
-    if (tokens.lsd) headers["x-fb-lsd"] = tokens.lsd;
+        const body = new URLSearchParams({
+          av: userId,
+          __user: userId,
+          __a: "1",
+          __req: "a",
+          dpr: "1",
+          __ccg: "EXCELLENT",
+          __comet_req: "15",
+          fb_dtsg: tokens.dtsg || "",
+          jazoest: tokens.jazoest || "2",
+          fb_api_caller_class: "RelayModern",
+          fb_api_req_friendly_name: "CommentsListComponentsPaginationQuery",
+          variables: JSON.stringify(variables),
+          server_timestamps: "true",
+          doc_id: docId,
+        });
+        if (tokens.lsd) body.set("lsd", tokens.lsd);
 
-    const res = await fetch("https://www.facebook.com/api/graphql/", {
-      method: "POST",
-      headers,
-      body,
-    });
-    const text = await res.text();
-    if (
-      text.includes("was not found") ||
-      (text.includes("CRITICAL") && text.length < 400)
-    ) {
-      continue;
-    }
+        const headers = {
+          "User-Agent": DESKTOP_UA,
+          "Content-Type": "application/x-www-form-urlencoded",
+          Cookie: cookie,
+          Origin: "https://www.facebook.com",
+          Referer: postUrl,
+          "x-fb-friendly-name": "CommentsListComponentsPaginationQuery",
+          "Sec-Fetch-Site": "same-origin",
+          "Sec-Fetch-Mode": "cors",
+          "Sec-Fetch-Dest": "empty",
+          Accept: "*/*",
+        };
+        if (tokens.lsd) headers["x-fb-lsd"] = tokens.lsd;
 
-    const parsed = [];
-    for (const line of text.split("\n")) {
-      const trimmed = line.trim();
-      if (!trimmed) continue;
-      try {
-        walkComments(JSON.parse(trimmed), parsed);
-      } catch {
-        /* ignore non-json line */
+        const res = await fetch("https://www.facebook.com/api/graphql/", {
+          method: "POST",
+          headers,
+          body,
+        });
+        const text = await res.text();
+        if (
+          text.includes("was not found") ||
+          text.includes("noncoercible_variable_value") ||
+          text.includes("missing_required_variable_value") ||
+          /"error":\s*1357054/.test(text) ||
+          (text.includes("CRITICAL") && text.length < 2000 && !text.includes('"data"'))
+        ) {
+          continue;
+        }
+
+        const parsed = [];
+        const payload = text.replace(/^for \(;;\);/, "");
+        for (const line of payload.split("\n")) {
+          const trimmed = line.trim();
+          if (!trimmed || trimmed.startsWith("<")) continue;
+          try {
+            walkComments(JSON.parse(trimmed), parsed);
+          } catch {
+            /* ignore non-json line */
+          }
+        }
+        if (parsed.length === 0) {
+          try {
+            walkComments(JSON.parse(payload), parsed);
+          } catch {
+            /* ignore */
+          }
+        }
+
+        const nextCursor =
+          text.match(/"end_cursor"\s*:\s*"([^"]+)"/)?.[1] || null;
+        const hasNext =
+          /"has_next_page"\s*:\s*true/.test(text) ||
+          Boolean(nextCursor && parsed.length > 0);
+
+        if (parsed.length > 0) {
+          return {
+            comments: dedupeComments(parsed),
+            docId,
+            feedLocation,
+            intent: commentsIntentToken,
+            nextCursor: hasNext ? nextCursor : null,
+          };
+        }
       }
-    }
-    if (parsed.length === 0) {
-      // try whole body
-      try {
-        walkComments(JSON.parse(text), parsed);
-      } catch {
-        /* ignore */
-      }
-    }
-
-    // next cursor (best-effort)
-    const nextCursor =
-      text.match(/"end_cursor"\s*:\s*"([^"]+)"/)?.[1] ||
-      text.match(/"cursor"\s*:\s*"([^"]+)"/)?.[1] ||
-      null;
-    const hasNext =
-      /"has_next_page"\s*:\s*true/.test(text) || Boolean(nextCursor && parsed.length > 0);
-
-    if (parsed.length > 0) {
-      return {
-        comments: dedupeComments(parsed),
-        docId,
-        nextCursor: hasNext ? nextCursor : null,
-      };
     }
   }
 
-  return { comments: [], docId: null, nextCursor: null };
+  return {
+    comments: [],
+    docId: null,
+    feedLocation: null,
+    intent: null,
+    nextCursor: null,
+  };
 }
 
 /**
@@ -518,14 +623,16 @@ export async function scrapeFacebookPost(postUrl, cookie) {
   assertLoggedInSession(html, tokens);
 
   const feedbackId = extractFeedbackId(html, postId);
-  const docIds = discoverCommentDocIds(html);
+  let docIds = discoverCommentDocIds(html);
+  const feedLocations = extractFeedLocations(html);
+  const fbTotalCount = extractTotalCommentCount(html);
 
   let comments = parseCommentsFromHtml(html);
   let usedGraphql = false;
+  let gqlPreferred = null;
 
   if (comments.length < MAX_COMMENTS && feedbackId && tokens.dtsg) {
     let cursor = null;
-    let workingDocIds = docIds;
     let stagnant = 0;
     for (
       let page = 0;
@@ -533,25 +640,51 @@ export async function scrapeFacebookPost(postUrl, cookie) {
       page++
     ) {
       const before = comments.length;
-      const pageResult = await fetchCommentsGraphql({
+      let pageResult = await fetchCommentsGraphql({
         cookie,
         tokens,
         feedbackId,
-        docIds: workingDocIds,
+        docIds,
         cursor,
         postUrl: res.url || url,
         count: 50,
+        feedLocations,
+        preferred: gqlPreferred,
       });
+
+      // First page miss → discover live doc_id from JS bundles once
+      if (!pageResult.comments.length && page === 0) {
+        const liveIds = await discoverDocIdsFromScripts(html, cookie);
+        if (liveIds.length) {
+          docIds = [...new Set([...liveIds, ...docIds])];
+          pageResult = await fetchCommentsGraphql({
+            cookie,
+            tokens,
+            feedbackId,
+            docIds,
+            cursor,
+            postUrl: res.url || url,
+            count: 50,
+            feedLocations,
+          });
+        }
+      }
+
       if (!pageResult.comments.length) {
         if (page === 0) {
           console.warn(
-            "⚠ GraphQL không lấy thêm comment (doc_id có thể đổi). Dùng comment embed trong HTML."
+            "⚠ GraphQL không lấy thêm comment (doc_id/vars có thể đổi). Dùng comment embed trong HTML."
           );
         }
         break;
       }
       usedGraphql = true;
-      if (pageResult.docId) workingDocIds = [pageResult.docId, ...docIds];
+      gqlPreferred = {
+        docId: pageResult.docId,
+        feedLocation: pageResult.feedLocation,
+        intent: pageResult.intent,
+      };
+      if (pageResult.docId) docIds = [pageResult.docId, ...docIds];
       comments = dedupeComments([...comments, ...pageResult.comments]);
       if (comments.length <= before) {
         stagnant += 1;
@@ -570,8 +703,10 @@ export async function scrapeFacebookPost(postUrl, cookie) {
   comments = comments.filter((c) => c.message && c.message.trim()).slice(0, MAX_COMMENTS);
 
   if (comments.length < MIN_COMMENTS) {
+    const totalHint =
+      fbTotalCount != null ? ` (FB báo ~${fbTotalCount} comment trên bài)` : "";
     console.warn(
-      `⚠ Chỉ lấy được ${comments.length}/${MIN_COMMENTS}+ comment. Bài có thể ít comment hoặc cookie/doc_id hạn chế.`
+      `⚠ Chỉ lấy được ${comments.length}/${MIN_COMMENTS}+ comment chữ${totalHint}. Bài có thể ít comment chữ hoặc cookie/doc_id hạn chế.`
     );
   } else if (!usedGraphql && comments.length > 0 && comments.length < MAX_COMMENTS) {
     console.warn(
@@ -591,6 +726,8 @@ export async function scrapeFacebookPost(postUrl, cookie) {
       usedGraphql,
       commentCount: comments.length,
       minTarget: MIN_COMMENTS,
+      fbTotalCount,
+      gql: gqlPreferred,
     },
   };
 }
